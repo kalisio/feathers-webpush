@@ -1,12 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>feathers-webpush axample</title>
+    <title>feathers-webpush example</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box
+      }
+
+      html {
+        height: 100%
+      }
+
+      body {
+        min-height: 100%;
+        display: flex;
+        align-items: center
+      }
+
+      #main {
+        margin:4rem auto;
+        text-align:center
+      }
+
+      .hide {
+        display:none
+      }
+
+      button {
+        border:1px solid #eaeaea;
+        border-radius:5px;
+        padding:5px;
+        color:white
+      }
+
+      #btnSubscribe, #btnPush {
+        background: green
+      }
+
+      #btnUnsubscribe {
+        background: red
+      }
+
+      #isSubscribed {
+        font-size:.8rem;
+        margin-bottom: 1rem
+      }
+    </style>
   </head>
+
   <body>
-    <main id="main" class="container">
-      <h1>Welcome to feathers-webpush</h1>
+    <main id="main">
+      <h2>Welcome to feathers-webpush</h2>
+      <div id="isSubscribed"></div>
+      <button onclick="sendNotification()" id="btnPush" class="hide">Push</button>
+      <button onclick="subscribe()" id="btnSubscribe" class="hide">Subscribe</button>
+      <button onclick="unsubscribe()" id="btnUnsubscribe" class="hide">Unsubscribe</button>
     </main>
   </body>
+
+  <script src="https://unpkg.com/@feathersjs/client@^5.0.0-pre.28/dist/feathers.js"></script>
+  <script src="https://unpkg.com/socket.io-client@4.5.3/dist/socket.io.min.js"></script>
+  <script type="text/javascript">
+    // Vapid public key
+    const publicVapidKey = '' 
+
+    // Create the client Feathers app
+    const app = feathers()
+    // Configure the transport using socket.io
+    const socket = io('http://localhost:3333')
+    const transport = feathers.socketio(socket)
+    app.configure(transport)
+
+    // Functions
+    async function checkPrerequisites () {
+      // Check for serviceWorker on navigator
+      if (!('serviceWorker' in navigator)) return new Error('This browser does not support service worker')
+      // Check for PushManager
+      if (!('PushManager' in window)) return new Error('Push isn\'t supported on this browser')      
+      // Check browser support for notifications
+      if (!('Notification' in window)) return new Error('This browser does not support notifications')
+      // Check notification authorizations
+      if (Notification.permission === 'denied') return new Error('We weren\'t granted permission')
+      // Ask the user for permission
+      if (Notification.permission !== 'denied') {
+        try {
+          const permission = await Notification.requestPermission()
+          return console.log('All prerequisites are valid')
+        } catch(err) {
+          return new Error('We weren\'t granted permission.', err)
+        }
+      }
+    }
+    async function registerServiceWorker () {
+      // Check for serviceWorker on navigator
+      if ('serviceWorker' in navigator) {
+        try {
+          const registration = await navigator.serviceWorker.register('/service-worker.js')
+          console.log('Service worker successfully registered')
+        } catch(err) {
+          new Error('ServiceWorker registration failed: ', err)
+        }
+      }
+    }
+    async function isSubscribed () {
+      // Check subscription to web push notifications
+      const registration = await navigator.serviceWorker.ready
+      const subscription = await registration.pushManager.getSubscription()
+      if (subscription) {
+        console.log ( 'You are subscribed :' , subscription )
+        document.getElementById('isSubscribed').innerHTML = 'You are subscribed !'
+        document.getElementById('btnSubscribe').className = 'hide'
+        document.getElementById('btnPush').className = ''
+        document.getElementById('btnUnsubscribe').className = ''
+      } else {
+        document.getElementById('isSubscribed').innerHTML = 'You must subscribe to receive notifications !'
+        document.getElementById('btnSubscribe').className = ''
+        document.getElementById('btnPush').className = 'hide'
+        document.getElementById('btnUnsubscribe').className = 'hide'
+      }
+    }
+    function urlBase64ToUint8Array (base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4)
+      const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
+      const rawData = window.atob(base64)
+      const outputArray = new Uint8Array(rawData.length)
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i)
+      }
+      return outputArray
+    }
+    async function subscribe () {
+      // Check for PushManager
+      if (!('PushManager' in window)) {
+        return new Error('Push isn\'t supported on this browser')
+      }
+      // Subscribe to web push notifications
+      const registration = await navigator.serviceWorker.getRegistration()
+      let subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array (publicVapidKey)
+      })
+      subscription = JSON.parse(JSON.stringify(subscription))
+      // Create subscription
+      app.service('subscriptions').create({
+        endpoint: subscription.endpoint,
+        auth: subscription.keys.auth,
+        p256dh: subscription.keys.p256dh
+      })
+      // Update page
+      document.getElementById('isSubscribed').innerHTML = 'You are subscribed !'
+      document.getElementById('btnSubscribe').className = 'hide'
+      document.getElementById('btnPush').className = ''
+      document.getElementById('btnUnsubscribe').className = ''
+      console.log('Push subscription registired: ', subscription)
+    }
+    async function unsubscribe () {
+      // Unsubscribe to web push notifications
+      const registration = await navigator.serviceWorker.getRegistration()
+      const subscription = await registration.pushManager.getSubscription()
+      await subscription.unsubscribe()
+      // Remove subscription
+      app.service('subscriptions').remove(subscription.endpoint)
+      // Update page
+      document.getElementById('isSubscribed').innerHTML = 'You must subscribe to receive notifications !'
+      document.getElementById('btnSubscribe').className = ''
+      document.getElementById('btnPush').className = 'hide'
+      document.getElementById('btnUnsubscribe').className = 'hide'
+      console.log('Unsubscribing to web push notifications')
+    }
+    async function sendNotification () {
+      // Notification data
+      const dataNotification = {
+        title: 'Push demo notification title',
+        body: 'Push demo notification body',
+        icon: 'https://s3.eu-central-1.amazonaws.com/kalisioscope/kapp/kapp-icon-256x256.png',
+        url: 'https://kalisio.com/'
+      }
+      // Send notification
+      app.service('push').create({
+        dataNotification: dataNotification, 
+        serviceSubscription: 'subscriptions',
+        filter: null
+      })
+    }
+
+    // Immediate
+    checkPrerequisites()
+    registerServiceWorker()
+    isSubscribed()
+  </script>
 </html>

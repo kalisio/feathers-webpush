@@ -50,6 +50,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "debug": "^4.3.4",
     "lodash": "^4.17.21",
     "web-push": "^3.6.1"
   },

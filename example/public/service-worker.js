@@ -1,21 +1,21 @@
-let click_open_url
+let clickOpenUrl
 
 self.addEventListener('push', (event) => {
-  const push_message = event.data.json()
-  click_open_url = push_message.url
+  const pushMessage = event.data.json()
+  clickOpenUrl = pushMessage.url
   const options = {
-    body: push_message.body,
-    icon: push_message.icon,
+    body: pushMessage.body,
+    icon: pushMessage.icon,
     tag: 'simple-push-demo-notification'
   }
-  event.waitUntil(self.registration.showNotification(push_message.title, options))
+  event.waitUntil(self.registration.showNotification(pushMessage.title, options))
 })
 
 self.addEventListener('notificationclick', (event) => {
   const clickedNotification = event.notification
   clickedNotification.close()
-  if (click_open_url) {
-    const promiseChain = clients.openWindow(click_open_url)
+  if (clickOpenUrl) {
+    const promiseChain = clients.openWindow(clickOpenUrl)
     event.waitUntil(promiseChain)
   }
 })

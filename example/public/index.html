@@ -111,11 +111,20 @@
       const registration = await navigator.serviceWorker.ready
       const subscription = await registration.pushManager.getSubscription()
       if (subscription) {
-        console.log ( 'You are subscribed :' , subscription )
-        document.getElementById('isSubscribed').innerHTML = 'You are subscribed !'
-        document.getElementById('btnSubscribe').className = 'hide'
-        document.getElementById('btnPush').className = ''
-        document.getElementById('btnUnsubscribe').className = ''
+        // Check if the subscription is in database
+        const subscriptionService = await app.service('subscriptions').find({ querry: { endpoint: subscription.endpoint } })
+        if (subscriptionService.length === 0) {
+          document.getElementById('isSubscribed').innerHTML = 'You must subscribe to receive notifications !'
+          document.getElementById('btnSubscribe').className = ''
+          document.getElementById('btnPush').className = 'hide'
+          document.getElementById('btnUnsubscribe').className = 'hide'
+        } else {
+          console.log ( 'You are subscribed :' , subscription )
+          document.getElementById('isSubscribed').innerHTML = 'You are subscribed !'
+          document.getElementById('btnSubscribe').className = 'hide'
+          document.getElementById('btnPush').className = ''
+          document.getElementById('btnUnsubscribe').className = ''
+        }
       } else {
         document.getElementById('isSubscribed').innerHTML = 'You must subscribe to receive notifications !'
         document.getElementById('btnSubscribe').className = ''
@@ -164,7 +173,8 @@
       const subscription = await registration.pushManager.getSubscription()
       await subscription.unsubscribe()
       // Remove subscription
-      app.service('subscriptions').remove(subscription.endpoint)
+      const subscriptionService = await app.service('subscriptions').find({ query: { endpoint: subscription.endpoint }})
+      app.service('subscriptions').remove(subscriptionService.id)
       // Update page
       document.getElementById('isSubscribed').innerHTML = 'You must subscribe to receive notifications !'
       document.getElementById('btnSubscribe').className = ''
@@ -175,8 +185,8 @@
     async function sendNotification () {
       // Notification data
       const dataNotification = {
-        title: 'Push demo notification title',
-        body: 'Push demo notification body',
+        title: 'feathers-webpush example title',
+        body: 'feathers-webpush example body',
         icon: 'https://s3.eu-central-1.amazonaws.com/kalisioscope/kapp/kapp-icon-256x256.png',
         url: 'https://kalisio.com/'
       }
@@ -184,7 +194,7 @@
       app.service('push').create({
         dataNotification: dataNotification, 
         serviceSubscription: 'subscriptions',
-        filter: null
+        filterSubscription: null
       })
     }
 

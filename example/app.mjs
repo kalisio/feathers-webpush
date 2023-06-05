@@ -27,16 +27,22 @@ class SubscriptionService {
   constructor () {
     this.subscriptions = []
   }
-  async find () {
-    return this.subscriptions
+  async find (params) {
+    if (_.isEmpty(params.query)) return this.subscriptions
+    return _.find(this.subscriptions, (subscription) => {
+      return params.query.id ? subscription.id === params.query.id : subscription.endpoint === params.query.endpoint
+    })
   }
-  async create (data) {
-    const subscription = _.find(this.subscriptions, { endpoint: data.endpoint })
-    if (subscription) return
-    this.subscriptions.push(data)
+  async create (data, params) {
+    // Check if subscription already exists
+    let subscription = _.find(this.subscriptions, { endpoint: data.endpoint })
+    if (subscription) return new Error('This subscription already exists')
+    // Create subscription
+    this.subscriptions.length === 0 ? subscription = { ...data, id: 0 } : subscription = { ...data, id: _.last(this.subscriptions).id +1 }
+    this.subscriptions.push(subscription)
   }
-  async remove (endpoint) {
-    const subscriptions = _.filter(this.subscriptions, subscription => subscription.endpoint !== endpoint)
+  async remove (id, params) {
+    const subscriptions = _.filter(this.subscriptions, subscription => subscription.id !== id)
     this.subscriptions = subscriptions
   }
 }

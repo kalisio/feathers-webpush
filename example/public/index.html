@@ -145,9 +145,9 @@
     async function subscribe () {
       // Check for PushManager
       if (!('PushManager' in window)) {
-        return new Error('Push isn\'t supported on this browser')
+        return new Error('Webpush isn\'t supported on this browser')
       }
-      // Subscribe to web push notifications
+      // Subscribe to web webpush notifications
       const registration = await navigator.serviceWorker.getRegistration()
       let subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
@@ -165,10 +165,10 @@
       document.getElementById('btnSubscribe').className = 'hide'
       document.getElementById('btnPush').className = ''
       document.getElementById('btnUnsubscribe').className = ''
-      console.log('Push subscription registired: ', subscription)
+      console.log('Webpush subscription registired: ', subscription)
     }
     async function unsubscribe () {
-      // Unsubscribe to web push notifications
+      // Unsubscribe to web webpush notifications
       const registration = await navigator.serviceWorker.getRegistration()
       const subscription = await registration.pushManager.getSubscription()
       await subscription.unsubscribe()
@@ -183,18 +183,17 @@
       console.log('Unsubscribing to web push notifications')
     }
     async function sendNotification () {
-      // Notification data
+      // Setup notification params
       const dataNotification = {
         title: 'feathers-webpush example title',
         body: 'feathers-webpush example body',
         icon: 'https://s3.eu-central-1.amazonaws.com/kalisioscope/kapp/kapp-icon-256x256.png',
         url: 'https://kalisio.com/'
       }
-      // Send notification
+      // Send webpush notification
       app.service('push').create({
         dataNotification: dataNotification, 
-        serviceSubscription: 'subscriptions',
-        filterSubscription: null
+        serviceSubscription: 'subscriptions'
       })
     }
 

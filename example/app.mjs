@@ -1,6 +1,7 @@
 import { feathers } from '@feathersjs/feathers'
 import express from '@feathersjs/express'
 import socketio from '@feathersjs/socketio'
+import { MemoryService } from '@feathersjs/memory'
 import { Service } from '../lib/service.js'
 import _ from 'lodash'
 
@@ -22,31 +23,9 @@ app.configure(socketio({
   maxHttpBufferSize: 1e8
 }))
 
-// Configure subscription service
-class SubscriptionService {
-  constructor () {
-    this.subscriptions = []
-  }
-  async find (params) {
-    if (_.isEmpty(params.query)) return this.subscriptions
-    return _.find(this.subscriptions, (subscription) => {
-      return params.query.id ? subscription.id === params.query.id : subscription.endpoint === params.query.endpoint
-    })
-  }
-  async create (data, params) {
-    // Check if subscription already exists
-    let subscription = _.find(this.subscriptions, { endpoint: data.endpoint })
-    if (subscription) return new Error('This subscription already exists')
-    // Create subscription
-    this.subscriptions.length === 0 ? subscription = { ...data, id: 0 } : subscription = { ...data, id: _.last(this.subscriptions).id +1 }
-    this.subscriptions.push(subscription)
-  }
-  async remove (id, params) {
-    const subscriptions = _.filter(this.subscriptions, subscription => subscription.id !== id)
-    this.subscriptions = subscriptions
-  }
-}
-app.use('subscriptions', new SubscriptionService())
+// Configure user service
+class UserService extends MemoryService {}
+app.use('users', new UserService({ multi: [ 'remove', 'create', 'find' ] }))
 
 // Define the options used to instanciate the webpush service
 const options = {

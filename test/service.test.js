@@ -1,38 +1,26 @@
-import makeDebug from 'debug'
 import feathers from '@feathersjs/feathers'
+import { MemoryService } from '@feathersjs/memory'
+import express from '@feathersjs/express'
 import chai, { util, expect } from 'chai'
 import chailint from 'chai-lint'
-import express from '@feathersjs/express'
+import makeDebug from 'debug'
 import { Service } from '../lib/index.js'
-import _ from 'lodash'
 
 feathers.setDebug(makeDebug)
 
 let app, service, expressServer
 
-const dataNotification = {
-  title: 'feathers-webpush example title',
-  body: 'feathers-webpush example body',
-  icon: 'https://s3.eu-central-1.amazonaws.com/kalisioscope/kapp/kapp-icon-256x256.png',
-  url: 'https://kalisio.com/'
+const subscription = {
+  subscriptions: [{
+    endpoint: process.env.SUBSCRIPTION_TEST_ENDPOINT,
+    keys: {
+      auth: process.env.SUBSCRIPTION_TEST_KEY_AUTH,
+      p256dh: process.env.SUBSCRIPTION_TEST_KEY_P256DH
+    }
+  }]
 }
 
-class SubscriptionService {
-  constructor () {
-    this.subscriptions = [{
-      endpoint: 'endpoint',
-      auth: 'auth',
-      p256dh: 'p256dh'
-    }]
-  }
-
-  async find (params) {
-    if (_.isEmpty(params.query)) return this.subscriptions
-    return _.find(this.subscriptions, (subscription) => {
-      return params.query.id ? subscription.id === params.query.id : subscription.endpoint === params.query.endpoint
-    })
-  }
-}
+class UserService extends MemoryService {}
 
 describe('feathers-webpush-service', () => {
   before(async () => {
@@ -40,7 +28,8 @@ describe('feathers-webpush-service', () => {
     app = express(feathers())
     app.use(express.json())
     app.configure(express.rest())
-    app.use('subscriptions', new SubscriptionService())
+    app.use('users', new UserService({ multi: ['find'] }))
+    app.service('users').create(subscription)
   })
   it('is ES module compatible', () => {
     expect(typeof Service).to.equal('function')
@@ -61,15 +50,12 @@ describe('feathers-webpush-service', () => {
     expressServer = await app.listen(3333)
   })
   it('send webpush notifications', async () => {
-    // const eventReceived = true
-    // const response = await service.create({
-    //   dataNotification,
-    //   serviceSubscription: 'subscriptions'
-    // })
-    // console.log(response)
-    // expect(response).toExist()
-    // expect(response.statusCode).to.equal(201)
-    // expect(eventReceived).beTrue()
+    const response = await service.create({
+      dataNotification: { title: 'title' },
+      subscriptionService: 'users'
+    })
+    expect(response).toExist()
+    expect(response[0].statusCode).to.equal(201)
   })
   after(async () => {
     await expressServer.close()

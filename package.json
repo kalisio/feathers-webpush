@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@feathersjs/errors": "^5.0.5",
+    "@feathersjs/memory": "^5.0.5",
     "debug": "^4.3.4",
     "lodash": "^4.17.21",
     "web-push": "^3.6.1"

@@ -113,6 +113,16 @@
   resolved "https://registry.npmjs.org/@feathersjs/hooks/-/hooks-0.8.1.tgz#de7e8e9632d9bd9027eaffc7f5292fc577bc769f"
   integrity sha512-q/OGjm2BEhT9cHYYcMZR4YKX4lHyufBJmi5Dz+XRM5YqUuEg9MYtR45CWgDiC1klrd2srNSsdmGNVU1otL4+0Q==
 
+"@feathersjs/memory@^5.0.5":
+  version "5.0.5"
+  resolved "https://registry.npmjs.org/@feathersjs/memory/-/memory-5.0.5.tgz#0f469b9a9c3847921f323fc9720b32d2f4b5e9c4"
+  integrity sha512-lNffbhAWryyctbeAYt2ANK6pFDWczmHLEa0Zw8B657wdEiRQ0m61nAwRskRGES6o4+xUpO9U+4/W3TbZFymaSw==
+  dependencies:
+    "@feathersjs/adapter-commons" "^5.0.5"
+    "@feathersjs/commons" "^5.0.5"
+    "@feathersjs/errors" "^5.0.5"
+    sift "^17.0.1"
+
 "@feathersjs/schema@^5.0.5":
   version "5.0.5"
   resolved "https://registry.npmjs.org/@feathersjs/schema/-/schema-5.0.5.tgz#fa480533764176c0aedb40be77274ce4f68facea"
@@ -2752,6 +2762,11 @@ side-channel@^1.0.4:
     call-bind "^1.0.0"
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
+
+sift@^17.0.1:
+  version "17.0.1"
+  resolved "https://registry.npmjs.org/sift/-/sift-17.0.1.tgz#70abec7e615923b45ce1b34e4795706d9233178c"
+  integrity sha512-10rmPF5nuz5UdKuhhxgfS7Vz1aIRGmb+kn5Zy6bntCgNwkbZc0a7Z2dUw2Y9wSoRrBzf7Oim81SUsYdOkVnI8Q==
 
 signal-exit@^3.0.2:
   version "3.0.7"

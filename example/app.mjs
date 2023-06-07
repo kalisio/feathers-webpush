@@ -29,11 +29,11 @@ app.use('users', new UserService({ multi: [ 'remove', 'create', 'find' ] }))
 
 // Define the options used to instanciate the webpush service
 const options = {
-  vapidKeys: {
+  vapidDetails: {
+    subject: process.env.SUBJECT,
     publicKey: process.env.PUBLIC_VAPID_KEY,
     privateKey: process.env.PRIVATE_VAPID_KEY
   },
-  subject: process.env.SUBJECT,
   app: app
 }
 

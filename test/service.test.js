@@ -20,6 +20,12 @@ const subscription = {
   }]
 }
 
+const vapidDetails = {
+  subject: process.env.SUBJECT,
+  publicKey: process.env.PUBLIC_VAPID_KEY,
+  privateKey: process.env.PRIVATE_VAPID_KEY
+}
+
 class UserService extends MemoryService {}
 
 describe('feathers-webpush-service', () => {
@@ -35,14 +41,7 @@ describe('feathers-webpush-service', () => {
     expect(typeof Service).to.equal('function')
   })
   it('create the service', async () => {
-    app.use('push', new Service({
-      vapidKeys: {
-        publicKey: process.env.PUBLIC_VAPID_KEY,
-        privateKey: process.env.PRIVATE_VAPID_KEY
-      },
-      subject: process.env.SUBJECT,
-      app
-    }), {
+    app.use('push', new Service({ vapidDetails, app }), {
       methods: ['create']
     })
     service = app.service('push')

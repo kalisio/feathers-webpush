@@ -32,13 +32,8 @@ yarn add @kalisio/feathers-webpush
 
 The provided [example](./example/README.md) illustrates how to setup:
 
-* a server app
-
-https://github.com/kalisio/feathers-webpush/blob/master/example/app.mjs#L1-L49
-
-* a browser client app
-
-https://github.com/kalisio/feathers-webpush/blob/master/example/public/index.html#L1-L208
+* a [server app](./example/app.mjs)
+* a [browser client app](./example/public/index.html)
 
 ## API
 

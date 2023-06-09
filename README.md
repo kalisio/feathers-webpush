@@ -34,9 +34,13 @@ The provided [example](./example/README.md) illustrates how to setup:
 
 * a server app
 
+https://github.com/kalisio/feathers-webpush/blob/49cf6f31acf9cb7b068fa7411a6b2c56f411caea/example/app.mjs#L1-L52
+
 * a browser client app
 
-## API.subscriptionCollection
+https://github.com/kalisio/feathers-webpush/blob/49cf6f31acf9cb7b068fa7411a6b2c56f411caea/example/public/index.html#L1-L171
+
+## API
 
 ### Service (options)
 

@@ -51,7 +51,8 @@ describe('feathers-webpush-service', () => {
   it('send webpush notifications', async () => {
     const response = await service.create({
       dataNotification: { title: 'title' },
-      subscriptionService: 'users'
+      subscriptionService: 'users',
+      subscriptionCollection: 'subscriptions'
     })
     expect(response).toExist()
     expect(response[0].statusCode).to.equal(201)

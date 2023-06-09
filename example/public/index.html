@@ -64,7 +64,9 @@
 
   <script src="https://unpkg.com/@feathersjs/client@^5.0.0-pre.28/dist/feathers.js"></script>
   <script src="https://unpkg.com/socket.io-client@4.5.3/dist/socket.io.min.js"></script>
-  <script type="text/javascript">
+  <script type="module">
+    import { checkPrerequisites, getPushSubscription, subscribePushNotifications, unsubscribePushNotifications, requestNotificationPermission } from '/feathers-webpush/client.js'
+
     // Vapid public key
     const publicVapidKey = '' 
 
@@ -76,30 +78,11 @@
     app.configure(transport)
 
     // Functions
-    async function checkPrerequisites () {
-      // Check for serviceWorker on navigator
-      if (!('serviceWorker' in navigator)) return new Error('This browser does not support service worker')
-      // Check for PushManager
-      if (!('PushManager' in window)) return new Error('Push isn\'t supported on this browser')      
-      // Check browser support for notifications
-      if (!('Notification' in window)) return new Error('This browser does not support notifications')
-      // Check notification authorizations
-      if (Notification.permission === 'denied') return new Error('We weren\'t granted permission')
-      // Ask the user for permission
-      if (Notification.permission !== 'denied') {
-        try {
-          const permission = await Notification.requestPermission()
-          return console.log('All prerequisites are valid')
-        } catch(err) {
-          return new Error('We weren\'t granted permission.', err)
-        }
-      }
-    }
     async function registerServiceWorker () {
       // Check for serviceWorker on navigator
       if ('serviceWorker' in navigator) {
         try {
-          const registration = await navigator.serviceWorker.register('/service-worker.js')
+          await navigator.serviceWorker.register('/service-worker.js')
           console.log('Service worker successfully registered')
         } catch(err) {
           new Error('ServiceWorker registration failed: ', err)
@@ -108,8 +91,7 @@
     }
     async function isSubscribed () {
       // Check subscription to web push notifications
-      const registration = await navigator.serviceWorker.ready
-      const subscription = await registration.pushManager.getSubscription()
+      const subscription = getPushSubscription()
       if (subscription) {
         // Check if the subscription is in database
         const subscriptionService = await app.service('users').find({ querry: { $select: ['endpoint', subscription.endpoint] }})
@@ -132,28 +114,9 @@
         document.getElementById('btnUnsubscribe').className = 'hide'
       }
     }
-    function urlBase64ToUint8Array (base64String) {
-      const padding = '='.repeat((4 - base64String.length % 4) % 4)
-      const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/')
-      const rawData = window.atob(base64)
-      const outputArray = new Uint8Array(rawData.length)
-      for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i)
-      }
-      return outputArray
-    }
-    async function subscribe () {
-      // Check for PushManager
-      if (!('PushManager' in window)) {
-        return new Error('Webpush isn\'t supported on this browser')
-      }
+    window.subscribe = async () => {
       // Subscribe to web webpush notifications
-      const registration = await navigator.serviceWorker.getRegistration()
-      let subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array (publicVapidKey)
-      })
-      subscription = JSON.parse(JSON.stringify(subscription))
+      let subscription = await subscribePushNotifications(publicVapidKey)
       // Create subscription
       app.service('users').create({
         subscriptions: [{
@@ -171,11 +134,9 @@
       document.getElementById('btnUnsubscribe').className = ''
       console.log('Webpush subscription registered: ', subscription)
     }
-    async function unsubscribe () {
-      // Unsubscribe to web webpush notifications
-      const registration = await navigator.serviceWorker.getRegistration()
-      const subscription = await registration.pushManager.getSubscription()
-      await subscription.unsubscribe()
+    window.unsubscribe = async () => {
+      // Unsubscribe from web webpush notifications
+      const subscription = unsubscribePushNotifications()
       // Remove subscription
       app.service('users').remove(null, { query: { $select: ['endpoint', subscription.endpoint] }})
       // Update page
@@ -185,7 +146,7 @@
       document.getElementById('btnUnsubscribe').className = 'hide'
       console.log('Unsubscribing to web push notifications')
     }
-    async function sendNotification () {
+    window.sendNotification = async () => {
       // Setup notification params
       const dataNotification = {
         title: 'feathers-webpush example title',
@@ -196,12 +157,14 @@
       // Send webpush notification
       app.service('push').create({
         dataNotification: dataNotification, 
-        subscriptionService: 'users'
+        subscriptionService: 'users',
+        subscriptionCollection: 'subscriptions'
       })
     }
 
     // Immediate
-    checkPrerequisites()
+    if (checkPrerequisites()) console.log('All prerequisites are valid')
+    requestNotificationPermission()
     registerServiceWorker()
     isSubscribed()
   </script>

@@ -32,10 +32,11 @@ yarn add @kalisio/feathers-webpush
 
 The provided [example](./example/README.md) illustrates how to setup:
 
-* a [server app](./example/app.mjs)
-* a [browser client app](./example/public/index.html)
+* a server app
 
-## API
+* a browser client app
+
+## API.subscriptionCollection
 
 ### Service (options)
 
@@ -54,13 +55,40 @@ The `create` method is used to send web push notifications. The `data` payload m
 |---|---|---|
 |`dataNotification` | The payload text for the push notification. | yes |
 | `subscriptionService` |  The name of the service where subscriptions are registered. | yes |
+| `subscriptionCollection` |  The name of the key where subscriptions are regitered. It can be an array of subscriptions or a single subscription object | yes |
 | `subscriptionFilter` |  The filter you wish to apply when retrieving subscriptions. | no |
 
-> **Note:** The subscription should be registered in the following format:
-```js
-{ subscriptions: [{ endpoint: 'url_firefox', keys: { auth: 'xxxx', p256dh: 'xxxx' } }, { endpoint: 'url_chrome', keys: { auth: 'xxxx', p256dh: 'xxxx' }}]}  
-{ subscription: { endpoint: 'url_google', keys: { auth: 'xxxx', p256dh: 'xxxx' }}}
-```
+> **Note:** Subscription should be registered in the following format: `{ endpoint: 'url_google', keys: { auth: 'xxxx', p256dh: 'xxxx' }}`
+
+## Client
+
+The `client.js` file provides a utility to manage client-side web push notifications with the following functions:
+
+### checkPrerequisites ()
+
+Checks the prerequisites for using web push notifications:
+
+* Checks if the browser supports service worker.
+* Checks if the browser supports the PushManager.
+* Checks if the browser supports notifications.
+* Checks the notification permissions.
+
+### requestNotificationPermission ()
+
+Requests permission from the user to send notifications. It checks if the permission has not been denied and prompts the user for permission. If permission is denied it throws an error.
+
+### getPushSubscription ()
+
+Retrieves the current push subscription. It returns the push subscription object if available.
+
+### subscribePushNotifications (publicVapidKey)
+
+Subscribes to push notifications using the provided public VAPID key. It obtains the registration from the service worker and subscribes to push notifications with the specified options. It returns the subscription object in following format:
+`{ endpoint: 'url_google', keys: { auth: 'xxxx', p256dh: 'xxxx' }}`
+
+### unsubscribePushNotifications ()
+
+Unsubscribes from push notifications. It retrieves the registration from the service worker and unsubscribes the current push subscription. It returns the unsubscribed subscription object.
 
 ## Tests
 

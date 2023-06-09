@@ -17,6 +17,9 @@ app.use(express.urlencoded({ extended: true }))
 // Host the public folder
 app.use('/', express.static('./public'))
 
+// Serve feathers-webpush
+app.use('/feathers-webpush', express.static('../lib'))
+
 // Configure Socket.io
 app.configure(socketio({ 
   cors: { origin: '*' },

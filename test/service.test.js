@@ -52,7 +52,7 @@ describe('feathers-webpush-service', () => {
     const response = await service.create({
       dataNotification: { title: 'title' },
       subscriptionService: 'users',
-      subscriptionCollection: 'subscriptions'
+      subscriptionProperties: 'subscriptions'
     })
     expect(response).toExist()
     expect(response[0].statusCode).to.equal(201)

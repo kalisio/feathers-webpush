@@ -59,7 +59,7 @@ The `create` method is used to send web push notifications. The `data` payload m
 |---|---|---|
 |`dataNotification` | The payload text for the push notification. | yes |
 | `subscriptionService` |  The name of the service where subscriptions are registered. | yes |
-| `subscriptionProperties` |  The name of the key where subscriptions are regitered. It can be an array of subscriptions or a single subscription object | yes |
+| `subscriptionProperty` |  The name of the key where subscriptions are regitered. It can be an array of subscriptions or a single subscription object | yes |
 | `subscriptionFilter` |  The filter you wish to apply when retrieving subscriptions. | no |
 
 > **Note:** Subscription should be registered in the following format: `{ endpoint: 'url_google', keys: { auth: 'xxxx', p256dh: 'xxxx' }}`

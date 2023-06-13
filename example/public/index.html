@@ -94,7 +94,7 @@
       const subscription = getPushSubscription()
       if (subscription) {
         // Check if the subscription is in database
-        const subscriptionService = await app.service('users').find({ querry: { $select: ['endpoint', subscription.endpoint] }})
+        const subscriptionService = await app.service('users').find({ query: { endpoint: subscription.endpoint }})
         if (subscriptionService.length === 0) {
           document.getElementById('isSubscribed').innerHTML = 'You must subscribe to receive notifications !'
           document.getElementById('btnSubscribe').className = ''
@@ -138,7 +138,7 @@
       // Unsubscribe from web webpush notifications
       const subscription = unsubscribePushNotifications()
       // Remove subscription
-      app.service('users').remove(null, { query: { $select: ['endpoint', subscription.endpoint] }})
+      app.service('users').remove(null, { query: { endpoint: subscription.endpoint }})
       // Update page
       document.getElementById('isSubscribed').innerHTML = 'You must subscribe to receive notifications !'
       document.getElementById('btnSubscribe').className = ''
@@ -158,7 +158,7 @@
       app.service('push').create({
         dataNotification: dataNotification, 
         subscriptionService: 'users',
-        subscriptionProperties: 'subscriptions'
+        subscriptionProperty: 'subscriptions'
       })
     }
 

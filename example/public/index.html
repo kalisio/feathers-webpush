@@ -116,7 +116,7 @@
     }
     window.subscribe = async () => {
       // Subscribe to web webpush notifications
-      let subscription = await subscribePushNotifications(publicVapidKey)
+      const subscription = await subscribePushNotifications(publicVapidKey)
       // Create subscription
       app.service('users').create({
         subscriptions: [{

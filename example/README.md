@@ -14,9 +14,9 @@ web-push generate-vapid-keys --json
 
 3. Setup the required environment variables: 
 
-* `PUBLIC_VAPID_KEY`
-* `PRIVATE_VAPID_KEY`
-* `SUBJECT`
+* `VAPID_PUBLIC_KEY`
+* `VAPID_PRIVATE_KEY`
+* `VAPID_SUBJECT`
 
 4. Add the `PUBLIC_VAPID_KEY` to the top of the script in index.html
 

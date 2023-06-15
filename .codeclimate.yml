@@ -1,6 +1,5 @@
 exclude_patterns:
-- "lib/"
-- "**/client/**"
+- "lib/client.js"
 plugins:
   fixme:
     enabled: true

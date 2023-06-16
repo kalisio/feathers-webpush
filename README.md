@@ -38,7 +38,7 @@ https://github.com/kalisio/feathers-webpush/blob/59a16a2c1e9c7bb0ebcf95f8996a9c6
 
 * a browser client app
 
-https://github.com/kalisio/feathers-webpush/blob/59a16a2c1e9c7bb0ebcf95f8996a9c661e3b0ce2/example/public/index.html#L1-L171
+https://github.com/kalisio/feathers-webpush/blob/8365802d11e60190e7deefa76cf7ba2c25c1d123/example/public/index.html#L1-L171
 
 ## API
 

@@ -115,6 +115,7 @@
       }
     }
     window.subscribe = async () => {
+      requestNotificationPermission()
       // Subscribe to web webpush notifications
       const subscription = await subscribePushNotifications(publicVapidKey)
       // Create subscription
@@ -164,7 +165,6 @@
 
     // Immediate
     if (checkPrerequisites()) console.log('All prerequisites are valid')
-    requestNotificationPermission()
     registerServiceWorker()
     isSubscribed()
   </script>

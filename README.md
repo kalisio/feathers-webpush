@@ -34,11 +34,11 @@ The provided [example](./example/README.md) illustrates how to setup:
 
 * a server app
 
-https://github.com/kalisio/feathers-webpush/blob/49cf6f31acf9cb7b068fa7411a6b2c56f411caea/example/app.mjs#L1-L52
+https://github.com/kalisio/feathers-webpush/blob/59a16a2c1e9c7bb0ebcf95f8996a9c661e3b0ce2/example/app.mjs#L1-L52
 
 * a browser client app
 
-https://github.com/kalisio/feathers-webpush/blob/49cf6f31acf9cb7b068fa7411a6b2c56f411caea/example/public/index.html#L1-L171
+https://github.com/kalisio/feathers-webpush/blob/59a16a2c1e9c7bb0ebcf95f8996a9c661e3b0ce2/example/public/index.html#L1-L171
 
 ## API
 
@@ -93,6 +93,12 @@ Subscribes to push notifications using the provided public VAPID key. It obtains
 ### unsubscribePushNotifications ()
 
 Unsubscribes from push notifications. It retrieves the registration from the service worker and unsubscribes the current push subscription. It returns the unsubscribed subscription object.
+
+### addSubscription (user, currentSubscription, subscriptionProperty)
+Adds a new subscription to the specified user object. It appends the subscription to the existing subscriptions if the user already has subscriptions stored.
+
+### removeSubscription (user, currentSubscription, subscriptionProperty)
+Removes a subscription from the specified user object. It removes the subscription from the subscriptions array based on the endpoint.
 
 ## Tests
 

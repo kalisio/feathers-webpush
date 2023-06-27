@@ -42,7 +42,13 @@ https://github.com/kalisio/feathers-webpush/blob/8365802d11e60190e7deefa76cf7ba2
 
 ## API
 
-### Service (options)
+`feathers-webpush` consists of two parts:
+* Service that provides create method for sending notifications
+* Hooks, which provide function for deleting expired subscriptions
+
+### Service
+
+#### Service (options)
 
 Create an instance of the service with the given options:
 
@@ -51,7 +57,7 @@ Create an instance of the service with the given options:
 |`vapidDetails` | The vapidDetails configuration. Refer to the [web-push package documentation](https://github.com/web-push-libs/web-push#input-3) for more information. | yes |
 | `app` |  The feathers app instance. | yes |
 
-### create (data, params)
+#### create (data, params)
 
 The `create` method is used to send web push notifications. The `data` payload must contain the following properties:
 
@@ -64,41 +70,90 @@ The `create` method is used to send web push notifications. The `data` payload m
 
 > **Note:** Subscription should be registered in the following format: `{ endpoint: 'url_google', keys: { auth: 'xxxx', p256dh: 'xxxx' }}`
 
+### Hooks
+
+The `feathers-webpush` module provides a hook for managing web push subscriptions.
+#### deleteExpiredSubscriptions ()
+
+The `deleteExpiredSubscriptions` is an `after` hook that deletes expired subscriptions. It should be used after the `create` method.
+
+To use this hook, you need to import it and include it in your FeathersJS application.
+
+Exemple usage: 
+
+```js
+import { deleteExpiredSubscriptions } from '@kalisio/feathers-webpush'
+
+app.service('push-notifications').hooks({
+  after: {
+    create: [deleteExpiredSubscriptions()]
+  }
+})
+```
+
 ## Client
 
 The `client.js` file provides a utility to manage client-side web push notifications with the following functions:
 
-### checkPrerequisites ()
+### Checking prerequisites
 
-Checks the prerequisites for using web push notifications:
+Before using web push notifications, you need to check if the necessary prerequisites are met. The `checkPrerequisites` function provided by `feathers-webpush` can be used for this purpose. It checks whether the browser supports notifications and returns error message 498 if it does not.
 
-* Checks if the browser supports service worker.
-* Checks if the browser supports the PushManager.
-* Checks if the browser supports notifications.
-* Checks the notification permissions.
+Example usage:
 
-### requestNotificationPermission ()
+```js
+import { checkPrerequisites } from '@kalisio/feathers-webpush/client.js'
 
-Requests permission from the user to send notifications. It checks if the permission has not been denied and prompts the user for permission. If permission is denied it throws an error.
+async function checkPrerequisites() {
+  try {
+    await checkPrerequisites()
+    console.log('All prerequisites are valid')
+  } catch (error) {
+    console.error(error.message)
+  }
+}
 
-### getPushSubscription ()
+checkPrerequisites()
+```
 
-Retrieves the current push subscription. It returns the push subscription object if available.
+### Requesting notification permission
 
-### subscribePushNotifications (publicVapidKey)
+To ask the user for permission to send notifications, you can use the `requestNotificationPermission` function provided by `feathers-webpush`. This function requests permission from the user and returns code 499 if permission is denied, or the status of the permission.
 
-Subscribes to push notifications using the provided public VAPID key. It obtains the registration from the service worker and subscribes to push notifications with the specified options. It returns the subscription object in following format:
-`{ endpoint: 'url_google', keys: { auth: 'xxxx', p256dh: 'xxxx' }}`
+```js
+import { requestNotificationPermission } from '@kalisio/feathers-webpush/client.js'
 
-### unsubscribePushNotifications ()
+async function requestPermission() {
+  try {
+    const permission = await requestNotificationPermission()
+    console.log('Notification permission:', permission)
+  } catch (error) {
+    console.error('Permission request failed:', error.message)
+  }
+}
 
-Unsubscribes from push notifications. It retrieves the registration from the service worker and unsubscribes the current push subscription. It returns the unsubscribed subscription object.
+requestPermission()
+```
 
-### addSubscription (user, currentSubscription, subscriptionProperty)
-Adds a new subscription to the specified user object. It appends the subscription to the existing subscriptions if the user already has subscriptions stored.
+### Managing Subscriptions
 
-### removeSubscription (user, currentSubscription, subscriptionProperty)
-Removes a subscription from the specified user object. It removes the subscription from the subscriptions array based on the endpoint.
+To manage Web Push subscriptions, `feathers-webpush` provides functions for subscribing, unsubscribing and accessing the current subscription.
+
+#### Get push subscription
+
+The `getPushSubscription` function retrieves the current push subscription, if it exists. It returns the subscription object or null if there is no active subscription.
+
+#### Subscribe to push notifications
+
+To subscribe to push notifications, use the `subscribePushNotifications` function. It requires a public VAPID key as a parameter and returns the subscription object.
+
+#### Unsubscribe from push notifications
+
+To unsubscribe from push notifications, use the `unsubscribePushNotifications` function. It retrieves the registration from the service worker and unsubscribes the current push subscription. It returns the unsubscribed subscription object.
+
+#### Adding and removing subscriptions
+
+You can add or remove subscriptions from a user object using the `addSubscription` and `removeSubscription` functions provided by `feathers-webpush`. These functions require the user object, the current subscription, and the subscription property.
 
 ## Tests
 

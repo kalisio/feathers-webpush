@@ -18,7 +18,7 @@ web-push generate-vapid-keys --json
 * `VAPID_PRIVATE_KEY`
 * `VAPID_SUBJECT`
 
-4. Add the `PUBLIC_VAPID_KEY` to the top of the script in index.html
+4. Add the `VAPID_PUBLIC_KEY` to the top of the script in index.html
 
 5. Start the server:
 

@@ -28,7 +28,7 @@ const vapidDetails = {
 
 class UserService extends MemoryService {}
 
-describe('feathers-webpush-service', () => {
+describe('feathers-webpush:service', () => {
   before(async () => {
     chailint(chai, util)
     app = express(feathers())
@@ -55,7 +55,7 @@ describe('feathers-webpush-service', () => {
       subscriptionProperty: 'subscriptions'
     })
     expect(response).toExist()
-    expect(response[0].statusCode).to.equal(201)
+    expect(response.succesful[0].statusCode).to.equal(201)
   })
   after(async () => {
     await expressServer.close()

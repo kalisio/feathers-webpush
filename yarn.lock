@@ -82,6 +82,11 @@
   resolved "https://registry.npmjs.org/@feathersjs/errors/-/errors-5.0.5.tgz#6165ff3cb018b7d6916ac23854aa0fb0f62a6cc8"
   integrity sha512-hD9rTSlJhsormcHcyYFdjQ/O75qk4cZbxougG1NUXaEES7CsXEdXKyWVhbYeq8zLRK/FbdgN1HvxuFnpx/jqsA==
 
+"@feathersjs/errors@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.npmjs.org/@feathersjs/errors/-/errors-5.0.6.tgz#5c58fcd054802a79e7d317f61a711e59aa923d75"
+  integrity sha512-lJAKKOpV6+gdah9TcS65f93gPGUx6SEQojK3bp6r51RgMP9SBD68JfrUoTX7pVDN6+hBBOfwT+1QiAyDw7mvAQ==
+
 "@feathersjs/express@^5.0.5":
   version "5.0.5"
   resolved "https://registry.npmjs.org/@feathersjs/express/-/express-5.0.5.tgz#75d4e8f99a53b67defc6c8d150a1ec70307ac8d5"

@@ -34,7 +34,7 @@ describe('feathers-webpush:service', () => {
     app = express(feathers())
     app.use(express.json())
     app.configure(express.rest())
-    app.use('users', new UserService({ multi: ['find'] }))
+    app.use('users', new UserService())
     app.service('users').create(subscription)
   })
   it('is ES module compatible', () => {

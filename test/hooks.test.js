@@ -17,7 +17,6 @@ const subscriptions = [{
     p256dh: process.env.SUBSCRIPTION_TEST_KEY_P256DH
   }
 }]
-
 const subscriptionService = 'users'
 const subscriptionProperty = 'subscriptions'
 
@@ -29,15 +28,16 @@ describe('feathers-webpush:hooks', () => {
     app = express(feathers())
     app.use(express.json())
     app.configure(express.rest())
-    app.use(subscriptionService, new UserService({ id: '_id', multi: ['find', 'patch'] }))
+    app.use(subscriptionService, new UserService({ id: '_id' }))
     app.service(subscriptionService).create({ subscriptions })
     expressServer = await app.listen(3333)
   })
 
   it('deleteExpiredSubscriptions', async () => {
-    let hook = { type: 'after', app, result: { failed: [endpoint], subscriptionService, subscriptionProperty } }
-    hook = await deleteExpiredSubscriptions(hook)
-    expect(hook.result.failed).to.deep.equal([])
+    const hook = { type: 'after', app, result: { failed: [{ statusCode: 410, endpoint }], subscriptionService, subscriptionProperty } }
+    await deleteExpiredSubscriptions(hook)
+    const user = await app.service(subscriptionService).find()
+    expect(user[0][subscriptionProperty]).to.deep.equal([])
   })
 
   after(async () => {

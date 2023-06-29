@@ -51,15 +51,14 @@
   },
   "dependencies": {
     "@feathersjs/errors": "^5.0.6",
-    "@feathersjs/memory": "^5.0.5",
     "debug": "^4.3.4",
     "lodash": "^4.17.21",
     "web-push": "^3.6.1"
   },
   "devDependencies": {
-    "@feathersjs/express": "^5.0.5",
     "@feathersjs/feathers": "^5.0.5",
-    "@feathersjs/socketio": "^5.0.5",
+    "@feathersjs/express": "^5.0.5",
+    "@feathersjs/memory": "^5.0.5",
     "c8": "^7.11.0",
     "chai": "^4.3.6",
     "chai-lint": "^0.1.1",

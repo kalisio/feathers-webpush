@@ -34,11 +34,13 @@ The provided [example](./example/README.md) illustrates how to setup:
 
 * a server app
 
-https://github.com/kalisio/feathers-webpush/blob/59a16a2c1e9c7bb0ebcf95f8996a9c661e3b0ce2/example/app.mjs#L1-L52
+https://github.com/kalisio/feathers-webpush/blob/e21cc9b24ed9d63dd0ffa7f4fc4ba874849f21b4/example/server.mjs#L1-L46
 
 * a browser client app
 
-https://github.com/kalisio/feathers-webpush/blob/8365802d11e60190e7deefa76cf7ba2c25c1d123/example/public/index.html#L1-L171
+https://github.com/kalisio/feathers-webpush/blob/e21cc9b24ed9d63dd0ffa7f4fc4ba874849f21b4/example/src/index.html#L1-L66
+
+https://github.com/kalisio/feathers-webpush/blob/e21cc9b24ed9d63dd0ffa7f4fc4ba874849f21b4/example/src/index.js#L1-L121
 
 ## API
 
@@ -99,59 +101,23 @@ The `client.js` file provides a utility to manage client-side web push notificat
 
 Before using web push notifications, you need to check if the necessary prerequisites are met. The `checkPrerequisites` function provided by `feathers-webpush` can be used for this purpose. It checks whether the browser supports notifications and returns error message 498 if it does not.
 
-Example usage:
-
-```js
-import { checkPrerequisites } from '@kalisio/feathers-webpush/client.js'
-
-async function checkPrerequisites() {
-  try {
-    await checkPrerequisites()
-    console.log('All prerequisites are valid')
-  } catch (error) {
-    console.error(error.message)
-  }
-}
-
-checkPrerequisites()
-```
-
 ### Requesting notification permission
 
 To ask the user for permission to send notifications, you can use the `requestNotificationPermission` function provided by `feathers-webpush`. This function requests permission from the user and returns code 499 if permission is denied, or the status of the permission.
 
-```js
-import { requestNotificationPermission } from '@kalisio/feathers-webpush/client.js'
-
-async function requestPermission() {
-  try {
-    const permission = await requestNotificationPermission()
-    console.log('Notification permission:', permission)
-  } catch (error) {
-    console.error('Permission request failed:', error.message)
-  }
-}
-
-requestPermission()
-```
-
-### Managing Subscriptions
-
-To manage Web Push subscriptions, `feathers-webpush` provides functions for subscribing, unsubscribing and accessing the current subscription.
-
-#### Get push subscription
+### Get push subscription
 
 The `getPushSubscription` function retrieves the current push subscription, if it exists. It returns the subscription object or null if there is no active subscription.
 
-#### Subscribe to push notifications
+### Subscribe to push notifications
 
 To subscribe to push notifications, use the `subscribePushNotifications` function. It requires a public VAPID key as a parameter and returns the subscription object.
 
-#### Unsubscribe from push notifications
+### Unsubscribe from push notifications
 
 To unsubscribe from push notifications, use the `unsubscribePushNotifications` function. It retrieves the registration from the service worker and unsubscribes the current push subscription. It returns the unsubscribed subscription object.
 
-#### Adding and removing subscriptions
+### Adding and removing subscriptions
 
 You can add or remove subscriptions from a user object using the `addSubscription` and `removeSubscription` functions provided by `feathers-webpush`. These functions require the user object, the current subscription, and the subscription property.
 

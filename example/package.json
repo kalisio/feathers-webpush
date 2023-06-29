@@ -1,0 +1,32 @@
+{
+  "name": "feathers-webpush-example",
+  "description": "Example of web push notification management",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Kalisio contributors",
+    "url": "https://github.com/kalisio"
+  },
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/kalisio/feathers-webpush/issues"
+  },
+  "scripts": {
+    "start:server": "node ./server.mjs",
+    "start:client": "webpack serve --config ./webpack.config.js --mode development"
+  },
+  "devDependencies": {
+    "@feathersjs/errors": "^5.0.6",
+    "@feathersjs/express": "^5.0.6",
+    "@feathersjs/feathers": "^5.0.6",
+    "@feathersjs/memory": "^5.0.6",
+    "@feathersjs/socketio": "^5.0.6",
+    "@feathersjs/socketio-client": "^5.0.6",
+    "lodash": "^4.17.21",
+    "socket.io-client": "^4.7.1",
+    "source-map-loader": "^4.0.1",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}

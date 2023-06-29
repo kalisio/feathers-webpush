@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>feathers-webpush example</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box
+      }
+
+      html {
+        height: 100%
+      }
+
+      body {
+        min-height: 100%;
+        display: flex;
+        align-items: center
+      }
+
+      #main {
+        margin:4rem auto;
+        text-align:center
+      }
+
+      .hide {
+        display:none
+      }
+
+      button {
+        border:1px solid #eaeaea;
+        border-radius:5px;
+        padding:5px;
+        color:white
+      }
+
+      #btnSubscribe, #btnPush {
+        background: green
+      }
+
+      #btnUnsubscribe {
+        background: red
+      }
+
+      #isSubscribed {
+        font-size:.8rem;
+        margin-bottom: 1rem
+      }
+    </style>
+  </head>
+
+  <body>
+    <main id="main">
+      <h2>Welcome to feathers-webpush</h2>
+      <div id="isSubscribed"></div>
+      <button onclick="sendNotification()" id="btnPush" class="hide">Push</button>
+      <button onclick="subscribe()" id="btnSubscribe" class="hide">Subscribe</button>
+      <button onclick="unsubscribe()" id="btnUnsubscribe" class="hide">Unsubscribe</button>
+    </main>
+  </body>
+
+  <script src="./bundle.js"></script>
+</html>

@@ -5,7 +5,7 @@ import { MemoryService } from '@feathersjs/memory'
 import { Service } from '../lib/service.js'
 import _ from 'lodash'
 
-const port = process.env.PORT || 3333
+const port = process.env.PORT || 8081
 
 // Create the Feathers app
 const app = express(feathers())
@@ -13,12 +13,6 @@ const app = express(feathers())
 // Configure express
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
-// Host the public folder
-app.use('/', express.static('./public'))
-
-// Serve feathers-webpush
-app.use('/feathers-webpush', express.static('../lib'))
 
 // Configure Socket.io
 app.configure(socketio({ 
@@ -28,7 +22,7 @@ app.configure(socketio({
 
 // Configure user service
 class UserService extends MemoryService {}
-app.use('users', new UserService({ multi: [ 'remove', 'create', 'find' ] }))
+app.use('users', new UserService({ multi: ['remove'] }))
 
 // Define the options used to instanciate the webpush service
 const options = {

@@ -10,7 +10,7 @@ import {
 } from '../../lib/client'
 
 // Vapid public key
-const publicVapidKey = process.env.VAPID_PUBLIC_KEY
+const publicVapidKey = process.env.VAPID_PUBLIC_KEY || ''
 
 // Create the client Feathers app
 const api = feathers()

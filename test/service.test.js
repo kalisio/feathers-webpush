@@ -50,7 +50,7 @@ describe('feathers-webpush:service', () => {
   })
   it('send webpush notifications', async () => {
     const response = await service.create({
-      dataNotification: { title: 'title' },
+      notification: { title: 'title' },
       subscriptionService: 'users',
       subscriptionProperty: 'subscriptions'
     })

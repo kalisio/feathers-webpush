@@ -103,7 +103,7 @@ window.unsubscribe = async () => {
 }
 window.sendNotification = async () => {
   // Setup notification params
-  const dataNotification = {
+  const notification = {
     title: 'feathers-webpush example title',
     body: 'feathers-webpush example body',
     icon: 'https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-icon-256x256.png',
@@ -111,7 +111,7 @@ window.sendNotification = async () => {
   }
   // Send webpush notification
   api.service('push').create({
-    dataNotification: dataNotification, 
+    notification, 
     subscriptionService: 'users',
     subscriptionProperty: 'subscriptions'
   })

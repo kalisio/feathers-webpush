@@ -65,7 +65,7 @@ The `create` method is used to send web push notifications. The `data` payload m
 
 | Property | Description | Required |
 |---|---|---|
-|`dataNotification` | The payload text for the push notification. | yes |
+|`notification` | The data payload for the push notification. | yes |
 | `subscriptionService` |  The name of the service where subscriptions are registered. | yes |
 | `subscriptionProperty` |  The name of the key where subscriptions are regitered. It can be an array of subscriptions or a single subscription object | yes |
 | `subscriptionFilter` |  The filter you wish to apply when retrieving subscriptions. | no |

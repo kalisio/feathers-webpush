@@ -34,13 +34,13 @@ The provided [example](./example/README.md) illustrates how to setup:
 
 * a server app
 
-https://github.com/kalisio/feathers-webpush/blob/e21cc9b24ed9d63dd0ffa7f4fc4ba874849f21b4/example/server.mjs#L1-L46
+https://github.com/kalisio/feathers-webpush/blob/6b09d58428923c95e26cd58d130bc6b268c4cb30/example/server.mjs#L1-L46
 
 * a browser client app
 
-https://github.com/kalisio/feathers-webpush/blob/e21cc9b24ed9d63dd0ffa7f4fc4ba874849f21b4/example/src/index.html#L1-L66
+https://github.com/kalisio/feathers-webpush/blob/6b09d58428923c95e26cd58d130bc6b268c4cb30/example/src/index.html#L1-L66
 
-https://github.com/kalisio/feathers-webpush/blob/e21cc9b24ed9d63dd0ffa7f4fc4ba874849f21b4/example/src/index.js#L1-L121
+https://github.com/kalisio/feathers-webpush/blob/6b09d58428923c95e26cd58d130bc6b268c4cb30/example/src/index.js#L1-L122
 
 ## API
 

@@ -50,7 +50,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@feathersjs/errors": "^5.0.6",
+    "@feathersjs/errors": "^5.0.8",
     "debug": "^4.3.4",
     "lodash": "^4.17.21",
     "web-push": "^3.6.1"

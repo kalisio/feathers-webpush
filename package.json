@@ -1,7 +1,7 @@
 {
   "name": "@kalisio/feathers-webpush",
   "description": "Manage web push notifications",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/kalisio/feathers-webpush",
   "main": "lib/index.js",
   "type": "module",

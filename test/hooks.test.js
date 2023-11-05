@@ -34,6 +34,7 @@ describe('feathers-webpush:hooks', () => {
   })
 
   it('deleteExpiredSubscriptions', async () => {
+    console.log(subscriptions)
     const hook = { type: 'after', app, result: { failed: [{ statusCode: 410, endpoint }], subscriptionService, subscriptionProperty } }
     await deleteExpiredSubscriptions(hook)
     const user = await app.service(subscriptionService).find()

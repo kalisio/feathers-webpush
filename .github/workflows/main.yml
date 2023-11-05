@@ -15,7 +15,9 @@ jobs:
         run: yarn
       - name: Set environment variables
         run: git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
-      - run: source development/workspaces/libs/libs.sh feathers-s3
+        env:
+          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+      - run: source development/workspaces/libs/libs.sh feathers-webpush
       - name: Run tests
         run: yarn test
   coverage:

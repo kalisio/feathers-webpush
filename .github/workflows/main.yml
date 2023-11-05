@@ -5,16 +5,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses:  actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses:  actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ vars.NODE_VERSION }}
       - name: Set environment variables
         run: |
           git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
           source development/workspaces/libs/libs.sh feathers-webpush
+          printenv
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
       - name: Install dependencies

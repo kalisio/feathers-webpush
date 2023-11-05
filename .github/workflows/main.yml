@@ -16,7 +16,7 @@ jobs:
       - name: Set environment variables
         run: git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
         env:
-          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+          TOKEN_GITHUB: ${{ env.TOKEN_GITHUB }}
       - run: source development/workspaces/libs/libs.sh feathers-webpush
       - name: Run tests
         run: yarn test

@@ -9,17 +9,15 @@ jobs:
       - uses:  actions/setup-node@v3
         with:
           node-version: ${{ vars.NODE_VERSION }}
-      - name: Set environment variables
-        run: |
-          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
-          source development/workspaces/libs/libs.sh feathers-webpush
-          printenv
-        env:
-          TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
       - name: Install dependencies
         run: yarn
       - name: Run tests
-        run: yarn test
+        run: |
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
+          yarn test
+        env:
+          TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
   coverage:
     needs: test
     name: coverage

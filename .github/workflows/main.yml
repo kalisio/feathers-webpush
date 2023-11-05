@@ -11,17 +11,18 @@ jobs:
         uses:  actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install dependencies
-        run: yarn
       - name: Set environment variables
-        run: git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+        run: |
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
-      - run: source development/workspaces/libs/libs.sh feathers-webpush
+      - name: Install dependencies
+        run: yarn
       - name: Run tests
         run: yarn test
   coverage:
-    needs: [ test ]
+    needs: test
     name: coverage
     runs-on: ubuntu-latest
     steps:

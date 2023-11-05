@@ -41,6 +41,7 @@ describe('feathers-webpush:service', () => {
     expect(typeof Service).to.equal('function')
   })
   it('create the service', async () => {
+    console.log(vapidDetails)
     app.use('push', new Service({ vapidDetails, app }), {
       methods: ['create']
     })

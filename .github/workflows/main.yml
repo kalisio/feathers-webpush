@@ -5,12 +5,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses:  actions/setup-node@v3
         with:
           node-version: 16
-      - run: yarn
-      - run: yarn test
+      - name: Install dependencies
+        run: yarn
+      - name: Set environment variables
+        run: git clone https://oauth2:$GITHUB_TOKEN@github.com/kalisio/development.git "development"
+      - run: source development/workspaces/libs/libs.sh feathers-s3
+      - name: Run tests
+        run: yarn test
   coverage:
     needs: [ test ]
     name: coverage

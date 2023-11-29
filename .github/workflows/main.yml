@@ -18,32 +18,19 @@ jobs:
           yarn test
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
-      - name: Post to a Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          # Slack channel id, channel name, or user id to post message.
-          # See also: https://api.slack.com/methods/chat.postMessage#channels
-          # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
-          channel-id: 'C0618GQ07R8'
-          # For posting a simple plain text message
-          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-        env:
-          SLACK_BOT_TOKEN: DxbltCT8fD4gi4zodfbau0FqJyRTfZ5ojMgR3zTQIpkPYJXOTRnWeJX3ueU81anevpVw56n1Vx+p88zmgqbXGqoNMwiNNuF/IUBMumT/9mLLReoEFVfWgWI7T1LTvmmTde/QkU20qjd8Ndg+Vm8RGymQCiXGtE7B8YbSl6BdJKqNDioUvoZ78rJn3r4/6pLCTUFH+T7YBy5qh88d0IhwsERfvktCre/llVTSQLEqWQZHSQBePj+EaDk17qQ/uOHS0zuzg0d3rLZaDSU3BZeNIE4ayylNKSRzca6Diey8sfxGFMmUvcCbUiGMTDKh2QyrePtluXgzoZM8U3Z7VxBbhi50HgFSUgJxPdlo+8yurN+NYgVOHmphDLxEcm84wJNv3u6ZNZQxGAfqFC4sgY/jx0KY9o11jheaNrorP4dKWm+3yF9GHvnr/NRzKK6ByjdlV8Um2/WjSsRi9l+TO+Psf0dqbm0Atewrpo+Al28wZgXcdyFHMNq0qz2RV2LugtVN8buOHY44Dya18xrlrXSZIPgaFeorIbTBBLsvZjY+GLVzrSiiQDSRheeLgkdU6PDBmpBQZVMNQMv/lpZgY6EBA6v6efvLhrX+fyzkEDKKEjx39+3peJwRLgJdbS7SDrmFYquHXSMPA1wzyGS4d8VkM811XdasjQEXBCa2aA/CzJk=
-  coverage:
-    needs: test
-    name: coverage
+  notify_slack:
     runs-on: ubuntu-latest
+    needs: test
     steps:
-    - uses: actions/checkout@v4
-    - uses:  actions/setup-node@v3
+    - name: Notify on Slack
+      uses: rtCamp/action-slack-notify@v3
       with:
-        node-version: ${{ vars.NODE_VERSION }}
-    - run: npm install -g yarn
-    - run: yarn install
-    - run: yarn build
-    - uses: paambaati/codeclimate-action@v2.2.4
-      env:
-        CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-      with:
-        coverageCommand: yarn coverage
+        slack-channel: your_slack_channel
+        slack-color: ${{ job.status == 'success' && 'good' || 'danger' }}
+        slack-text: |
+          Build [#${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          (commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}))
+          of ${{ github.repository }}@${{ github.ref }} by ${{ github.actor }} ${{
+              job.status == 'success' && 'succeeded' || 'failed'
+            }} in 
+        

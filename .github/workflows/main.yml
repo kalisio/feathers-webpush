@@ -27,7 +27,8 @@ jobs:
       env:
         SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
         SLACK_CHANNEL: libs
+        SLACK_USERNAME: GitHub Actions
+        SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
         SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}
-        SLACK_ICON: https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-icon-2048x2048.png
-        SLACK_TITLE: ${{ github.repository }}
+        SLACK_MESSAGE: build of ${{ github.repository }} by ${{ github.actor }} ${{ job.status == 'success' && 'passed' || 'failed' }}
         SLACK_FOOTER:

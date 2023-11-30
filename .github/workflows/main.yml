@@ -32,3 +32,20 @@ jobs:
         SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}
         SLACK_MESSAGE: build of ${{ github.repository }} by ${{ github.actor }} ${{ job.status == 'success' && 'passed' || 'failed' }}
         SLACK_FOOTER:
+  coverage:
+    needs: [ test ]
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses:  actions/setup-node@v3
+      with:
+        node-version: ${{ vars.NODE_VERSION }}
+    - run: yarn
+    - run: yarn install
+    - run: yarn build
+    - uses: paambaati/codeclimate-action@v2.2.4
+      env:
+        CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
+      with:
+        coverageCommand: yarn coverage

@@ -3,6 +3,7 @@ on: [push]
 
 jobs:
   test:
+    name: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -11,15 +12,15 @@ jobs:
           node-version: ${{ vars.NODE_VERSION }}
       - name: Install dependencies
         run: yarn
-      - name: Run Tests
+      - name: Run tests
         id: run-tests
         run: |
-
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
           yarn test
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
-          CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-      - name: Notify on Slack
+      - name: Notify on slack
         if: always()
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -30,8 +31,6 @@ jobs:
           SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}
           SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
           SLACK_FOOTER:
-
-
   coverage:
     needs: [ test ]
     name: coverage
@@ -46,7 +45,9 @@ jobs:
     - uses: paambaati/codeclimate-action@v5.0.0
       env:
         CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-        TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
       with:
-        coverageCommand: yarn test
+        coverageCommand: |
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
+          yarn test
         debug: true

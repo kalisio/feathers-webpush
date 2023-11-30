@@ -18,20 +18,16 @@ jobs:
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
           CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-  notify_slack:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-    - name: Notify on Slack
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
-        SLACK_CHANNEL: libs
-        SLACK_USERNAME: GitHub Actions
-        SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
-        SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}
-        SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ job.status == 'success' && 'passed' || 'failed' }}
-        SLACK_FOOTER:
+      - name: Notify on Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: libs
+          SLACK_USERNAME: GitHub Actions
+          SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
+          SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}
+          SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ job.status == 'success' && 'passed' || 'failed' }}
+
   coverage:
     needs: [ test ]
     name: coverage

@@ -20,6 +20,10 @@ jobs:
           yarn test
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
+      - name: Publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
       - name: Notify on slack
         if: always()
         uses: rtCamp/action-slack-notify@v2
@@ -31,7 +35,3 @@ jobs:
           SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}
           SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
           SLACK_FOOTER:
-      - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v5.0.0
-        env:
-          CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127

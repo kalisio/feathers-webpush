@@ -31,23 +31,7 @@ jobs:
           SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}
           SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
           SLACK_FOOTER:
-  coverage:
-    needs: [ test ]
-    name: coverage
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses:  actions/setup-node@v3
-      with:
-        node-version: ${{ vars.NODE_VERSION }}
-    - run: npm install -g yarn
-    - run: yarn
-    - uses: paambaati/codeclimate-action@v5.0.0
-      env:
-        CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-      with:
-        coverageCommand: |
-          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
-          source development/workspaces/libs/libs.sh feathers-webpush
-          yarn test
-        debug: true
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127

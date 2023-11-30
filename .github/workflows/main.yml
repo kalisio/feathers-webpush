@@ -29,7 +29,6 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: libs
           SLACK_USERNAME: GitHub Actions
           SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
           SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}

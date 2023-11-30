@@ -42,6 +42,7 @@ jobs:
     - uses:  actions/setup-node@v3
       with:
         node-version: ${{ vars.NODE_VERSION }}
+    - run: npm install -g yarn
     - run: yarn
     - uses: paambaati/codeclimate-action@v3.1.1
       env:

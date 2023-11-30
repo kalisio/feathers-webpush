@@ -23,14 +23,15 @@ jobs:
     needs: test
     steps:
     - name: Notify on Slack
-      uses: rtCamp/action-slack-notify@v3
-      with:
-        slack-channel: your_slack_channel
-        slack-color: ${{ job.status == 'success' && 'good' || 'danger' }}
-        slack-text: |
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
+        SLACK_CHANNEL: libs
+        SLACK_COLOR: ${{ job.status == 'success' && 'good' || 'danger' }}
+        SLACK_ICON: https://github.com/rtCamp.png?size=48
+        SLACK_MESSAGE: |
           Build [#${{ github.run_number }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
           (commit [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }}))
           of ${{ github.repository }}@${{ github.ref }} by ${{ github.actor }} ${{
               job.status == 'success' && 'succeeded' || 'failed'
             }} in 
-        

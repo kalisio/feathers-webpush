@@ -14,26 +14,25 @@ jobs:
       - name: Run Tests
         id: run-tests
         run: |
-
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
           yarn test
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
           CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-  notify_slack:
-    runs-on: ubuntu-latest
-    needs: test
-    if: always()
-    steps:
-    - name: Notify on Slack
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
-        SLACK_CHANNEL: libs
-        SLACK_USERNAME: GitHub Actions
-        SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
-        SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}
-        SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
-        SLACK_FOOTER:
+      - name: Notify on Slack
+        if: always()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ vars.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: libs
+          SLACK_USERNAME: GitHub Actions
+          SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
+          SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}
+          SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
+          SLACK_FOOTER:
+
+
   coverage:
     needs: [ test ]
     name: coverage

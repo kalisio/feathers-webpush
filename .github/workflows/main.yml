@@ -14,8 +14,7 @@ jobs:
       - name: Run Tests
         id: run-tests
         run: |
-          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
-          source development/workspaces/libs/libs.sh feathers-webpush
+
           yarn test
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}

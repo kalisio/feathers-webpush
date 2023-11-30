@@ -47,6 +47,7 @@ jobs:
     - uses: paambaati/codeclimate-action@v5.0.0
       env:
         CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
+        TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
       with:
         coverageCommand: |
           git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"

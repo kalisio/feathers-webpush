@@ -11,9 +11,11 @@ jobs:
           node-version: ${{ vars.NODE_VERSION }}
       - name: Install dependencies
         run: yarn
-      - name: Run tests
+      - name: Run Tests
+        id: run-tests
         run: |
-
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
           yarn test
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
@@ -30,8 +32,8 @@ jobs:
         SLACK_CHANNEL: libs
         SLACK_USERNAME: GitHub Actions
         SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
-        SLACK_COLOR: ${{ success() && 'good' || 'danger' }}
-        SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ job.status == 'success' && 'passed' || 'failed' }}
+        SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}
+        SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
         SLACK_FOOTER:
   coverage:
     needs: [ test ]

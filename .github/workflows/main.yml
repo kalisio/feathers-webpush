@@ -53,3 +53,4 @@ jobs:
           git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
           source development/workspaces/libs/libs.sh feathers-webpush
           yarn test
+        debug: true

@@ -13,13 +13,15 @@ jobs:
         run: yarn
       - name: Run tests
         run: |
-
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
           yarn test
         env:
           TOKEN_GITHUB: ${{ vars.TOKEN_GITHUB }}
           CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
   notify_slack:
     runs-on: ubuntu-latest
+    needs: test
     steps:
     - name: Notify on Slack
       uses: rtCamp/action-slack-notify@v2
@@ -46,4 +48,7 @@ jobs:
       env:
         CC_TEST_REPORTER_ID: 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
       with:
-        coverageCommand: yarn coverage
+        coverageCommand: |
+          git clone https://oauth2:$TOKEN_GITHUB@github.com/kalisio/development.git "development"
+          source development/workspaces/libs/libs.sh feathers-webpush
+          yarn test

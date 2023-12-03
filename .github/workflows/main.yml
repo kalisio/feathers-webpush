@@ -32,5 +32,5 @@ jobs:
           SLACK_USERNAME: GitHub Actions
           SLACK_ICON: https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png
           SLACK_COLOR: ${{ steps.run-tests.outcome == 'success' && 'good' || 'danger' }}
-          SLACK_MESSAGE: Build of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
+          SLACK_MESSAGE: Test of ${{ github.repository }}@${{ github.ref_name }} by ${{ github.actor }} ${{ steps.run-tests.outcome == 'success' && 'passed' || 'failed' }}
           SLACK_FOOTER:

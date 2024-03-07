@@ -28,7 +28,7 @@ done
 ##
 
 WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
-init_lib_infos "$ROOT_DIR" "$WORKSPACE_DIR/development/workspaces/libs"
+init_app_infos "$ROOT_DIR" "$WORKSPACE_DIR/development/workspaces/libs"
 
 APP=$(get_app_name)
 VERSION=$(get_app_version)

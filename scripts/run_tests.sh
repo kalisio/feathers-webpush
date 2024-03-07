@@ -42,4 +42,4 @@ echo "About to run tests for ${APP} v${VERSION}-($FLAVOR) ..."
 ##
 
 use_node "$NODE_VER"
-yarn test
+yarn && yarn test

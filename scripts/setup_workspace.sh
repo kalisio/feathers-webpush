@@ -40,10 +40,6 @@ begin_group "Setting up workspace ..."
 if [ "$CI" = true ]; then
     WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
 
-    # workaround since repo is feathers-webpush with a 'A' and in kli file it's feathers-webpush with a 'a'
-    # mv "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
-    # ln -s "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
-
     DEVELOPMENT_REPO_URL="https://$GITHUB_DEVELOPMENT_PAT@github.com/kalisio/development.git"
 else
     shift $((OPTIND-1))
@@ -66,15 +62,6 @@ fi
 # clone development in $WORKSPACE_DIR
 DEVELOPMENT_DIR="$WORKSPACE_DIR/development"
 git clone --depth 1 "$DEVELOPMENT_REPO_URL" "$DEVELOPMENT_DIR"
-
-if [ "$WORKSPACE_KIND" = kli ] || [ "$WORKSPACE_KIND" = klifull ]; then
-    # select kli file for dependencies
-    init_app_infos "$WORKSPACE_DIR/feathers-webpush" "$DEVELOPMENT_DIR/workspaces/apps"
-    KLI_FILE=$(get_app_kli_file)
-
-    echo "About to populate workspace using $KLI_FILE ..."
-    run_kli "$WORKSPACE_DIR" "$WORKSPACE_NODE" "$KLI_FILE" "$WORKSPACE_KIND"
-fi
 
 end_group "Setting up workspace ..."
 

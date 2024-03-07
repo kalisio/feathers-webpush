@@ -28,7 +28,7 @@ done
 ##
 
 WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
-init_app_infos "$ROOT_DIR" "$WORKSPACE_DIR/development/workspaces/apps"
+init_lib_infos "$ROOT_DIR" "$WORKSPACE_DIR/development/workspaces/libs"
 
 APP=$(get_app_name)
 VERSION=$(get_app_version)
@@ -36,17 +36,7 @@ FLAVOR=$(get_app_flavor)
 
 echo "About to run tests for ${APP} v${VERSION}-($FLAVOR) ..."
 
-. "$WORKSPACE_DIR/development/workspaces/apps/apps.sh" kapp
-
-## Start mongo
-##
-
-begin_group "Starting mongo $MONGO_VER ..."
-
-use_mongo "$MONGO_VER"
-k-mongo
-
-end_group "Starting mongo $MONGO_VER ..."
+. "$WORKSPACE_DIR/development/workspaces/libs/libs.sh" feathers-webpush
 
 ## Run tests
 ##

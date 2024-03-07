@@ -41,8 +41,8 @@ if [ "$CI" = true ]; then
     WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
 
     # workaround since repo is feathers-webpush with a 'A' and in kli file it's feathers-webpush with a 'a'
-    mv "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
-    ln -s "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
+    # mv "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
+    # ln -s "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
 
     DEVELOPMENT_REPO_URL="https://$GITHUB_DEVELOPMENT_PAT@github.com/kalisio/development.git"
 else

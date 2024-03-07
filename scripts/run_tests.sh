@@ -41,3 +41,12 @@ echo "About to run tests for ${APP} v${VERSION}-($FLAVOR) ..."
 
 use_node "$NODE_VER"
 yarn && yarn test
+
+## Publish code coverage
+##
+install_cc_test_reporter
+~/.local/bin/cc-test-reporter format-coverage -t lcov coverage/lcov.info
+~/.local/bin/cc-test-reporter upload-coverage
+
+## Notify on slack
+##

@@ -44,7 +44,8 @@ yarn && yarn test
 
 ## Publish code coverage
 ##
-install_cc_test_reporter
+
+install_cc_test_reporter ~/.local/bin/cc-test-reporter
 ~/.local/bin/cc-test-reporter format-coverage -t lcov coverage/lcov.info
 ~/.local/bin/cc-test-reporter upload-coverage
 

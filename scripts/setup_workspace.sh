@@ -42,20 +42,20 @@ if [ "$CI" = true ]; then
 
     # workaround since repo is feathers-webpush with a 'A' and in kli file it's feathers-webpush with a 'a'
     mv "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
-    ln -s "$WORKSPACE_DIR/kapp" "$WORKSPACE_DIR/feathers-webpush"
+    ln -s "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
 
     DEVELOPMENT_REPO_URL="https://$GITHUB_DEVELOPMENT_PAT@github.com/kalisio/development.git"
 else
     shift $((OPTIND-1))
     WORKSPACE_DIR="$1"
 
-    # NOTE: cloning kapp could be avoided if we could parse app_version from tag/branch name instead
-    # In this case, the kli would clone kapp
+    # NOTE: cloning feathers-webpush could be avoided if we could parse app_version from tag/branch name instead
+    # In this case, the kli would clone feathers-webpush
     GIT_OPS=
     if [ -n "$WORKSPACE_TAG" ] || [ -n "$WORKSPACE_BRANCH" ]; then
         GIT_OPS="--branch ${WORKSPACE_TAG:-$WORKSPACE_BRANCH}"
     fi
-    git clone --depth 1 $GIT_OPS "$GITHUB_URL/kalisio/feathers-webpush.git" "$WORKSPACE_DIR/kapp"
+    git clone --depth 1 $GIT_OPS "$GITHUB_URL/kalisio/feathers-webpush.git" "$WORKSPACE_DIR/feathers-webpush"
 
     DEVELOPMENT_REPO_URL="$GITHUB_URL/kalisio/development.git"
 
@@ -69,7 +69,7 @@ git clone --depth 1 "$DEVELOPMENT_REPO_URL" "$DEVELOPMENT_DIR"
 
 if [ "$WORKSPACE_KIND" = kli ] || [ "$WORKSPACE_KIND" = klifull ]; then
     # select kli file for dependencies
-    init_app_infos "$WORKSPACE_DIR/kapp" "$DEVELOPMENT_DIR/workspaces/apps"
+    init_app_infos "$WORKSPACE_DIR/feathers-webpush" "$DEVELOPMENT_DIR/workspaces/apps"
     KLI_FILE=$(get_app_kli_file)
 
     echo "About to populate workspace using $KLI_FILE ..."

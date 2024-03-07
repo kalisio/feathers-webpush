@@ -40,9 +40,9 @@ begin_group "Setting up workspace ..."
 if [ "$CI" = true ]; then
     WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
 
-    # workaround since repo is kApp with a 'A' and in kli file it's kapp with a 'a'
-    mv "$WORKSPACE_DIR/kApp" "$WORKSPACE_DIR/kapp"
-    ln -s "$WORKSPACE_DIR/kapp" "$WORKSPACE_DIR/kApp"
+    # workaround since repo is feathers-webpush with a 'A' and in kli file it's feathers-webpush with a 'a'
+    mv "$WORKSPACE_DIR/feathers-webpush" "$WORKSPACE_DIR/feathers-webpush"
+    ln -s "$WORKSPACE_DIR/kapp" "$WORKSPACE_DIR/feathers-webpush"
 
     DEVELOPMENT_REPO_URL="https://$GITHUB_DEVELOPMENT_PAT@github.com/kalisio/development.git"
 else
@@ -55,7 +55,7 @@ else
     if [ -n "$WORKSPACE_TAG" ] || [ -n "$WORKSPACE_BRANCH" ]; then
         GIT_OPS="--branch ${WORKSPACE_TAG:-$WORKSPACE_BRANCH}"
     fi
-    git clone --depth 1 $GIT_OPS "$GITHUB_URL/kalisio/kApp.git" "$WORKSPACE_DIR/kapp"
+    git clone --depth 1 $GIT_OPS "$GITHUB_URL/kalisio/feathers-webpush.git" "$WORKSPACE_DIR/kapp"
 
     DEVELOPMENT_REPO_URL="$GITHUB_URL/kalisio/development.git"
 

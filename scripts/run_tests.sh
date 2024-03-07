@@ -13,10 +13,8 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 
 NODE_VER=16
 MONGO_VER=4
-while getopts "m:n:" option; do
+while getopts "n:" option; do
     case $option in
-        m) # defines mongo version
-            MONGO_VER=$OPTARG;;
         n) # defines node version
             NODE_VER=$OPTARG;;
         *)

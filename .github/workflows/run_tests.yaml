@@ -19,18 +19,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
-      # - name: Cache requirements
-      #   uses: actions/cache@v4
-      #   with:
-      #     key: requirements
-      #     path: ${{ runner.temp }}/dl
-      # - name: Get yarn cache directory path
-      #   id: yarn-cache-dir-path
-      #   run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      # - uses: actions/cache@v4
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Init runner
         run: bash ./scripts/init_runner.sh ${{ github.job }}
       - name: Setup workspace

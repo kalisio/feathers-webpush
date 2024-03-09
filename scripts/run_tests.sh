@@ -46,6 +46,7 @@ yarn && yarn test
 ##
 
 install_cc_test_reporter ~/.local/bin/cc-test-reporter
+ls -l /home/runner/.local/bin/cc-test-reporter
 ~/.local/bin/cc-test-reporter format-coverage -t lcov coverage/lcov.info
 ~/.local/bin/cc-test-reporter upload-coverage -r 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
 

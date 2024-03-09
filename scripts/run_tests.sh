@@ -45,10 +45,11 @@ yarn && yarn test
 ## Publish code coverage
 ##
 
-install_cc_test_reporter ~/.local/bin/cc-test-reporter
-ls -l /home/runner/.local/bin/cc-test-reporter
-~/.local/bin/cc/cc-test-reporter format-coverage -t lcov coverage/lcov.info
-~/.local/bin/cc/cc-test-reporter upload-coverage -r 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
+install_cc_test_reporter ~
+ls -l ~/.local/bin/cc-test-reporter
+ls -l ~/cc
+~/.local/bin/cc-test-reporter format-coverage -t lcov coverage/lcov.info
+~/.local/bin/cc-test-reporter upload-coverage -r 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
 
 
 

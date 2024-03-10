@@ -68,3 +68,5 @@ end_group "Setting up workspace ..."
 if [ -n "${KLI_FILE:-}" ]; then
     echo "Workspace setup using $KLI_FILE"
 fi
+
+export WORKSPACE_BRANCH

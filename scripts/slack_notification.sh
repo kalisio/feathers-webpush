@@ -6,8 +6,10 @@ THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
 THIS_DIR=$(dirname "$THIS_FILE")
 ROOT_DIR=$(dirname "$THIS_DIR")
 . "$THIS_DIR/kash/kash.sh"
-APP=$(get_app_name)
 
+WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
+init_app_infos "$ROOT_DIR" "$WORKSPACE_DIR/development/workspaces/libs"
+APP=$(get_app_name)
 ## Notify on slack
 ##
 get_git_commit_url() {

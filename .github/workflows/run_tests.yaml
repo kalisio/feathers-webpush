@@ -37,5 +37,6 @@ jobs:
           SLACK_WEBHOOK_LIBS: ${{ secrets.SLACK_WEBHOOK_LIBS }}
         run: |
           cd ..
+          cd feathers-webpush
           ls -l
           bash ./scripts/slack_notification.sh

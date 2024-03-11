@@ -36,5 +36,6 @@ jobs:
           TEST_RESULT: ${{ needs.run_tests.result }}
           SLACK_WEBHOOK_LIBS: ${{ secrets.SLACK_WEBHOOK_LIBS }}
         run: |
+          cd ..
           ls -l
           bash ./scripts/slack_notification.sh

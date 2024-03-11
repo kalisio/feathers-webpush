@@ -47,34 +47,3 @@ yarn && yarn test
 
 install_cc_test_reporter ~
 send_coverage_to_cc 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-
-## Notify on slack
-##
-get_git_commit_url() {
-    local ROOT_DIR="$1"
-    local REPO_NAME="$2"
-    local COMMIT_SHA
-    COMMIT_SHA=$(get_git_commit_sha "$ROOT_DIR")
-
-    local GITHUB_REPO_URL="https://github.com/kalisio/$REPO_NAME"
-    local COMMIT_URL="$GITHUB_REPO_URL/commit/$COMMIT_SHA"
-
-    echo "$COMMIT_URL"
-}
-
-generate_slack_message() {
-    local ROOT_DIR="$1"
-    local APP="$2"
-    local COMMIT_SHA
-    local COMMIT_URL
-    local AUTHOR
-    COMMIT_SHA=$(get_git_commit_sha "$ROOT_DIR")
-    COMMIT_URL=$(get_git_commit_url "$ROOT_DIR")
-    AUTHOR=$(get_git_commit_author_name "$THIS_DIR")
-    
-    echo "Build ([$COMMIT_SHA]($COMMIT_URL)) of $APP by $AUTHOR passed"
-}
-
-message=$(generate_slack_message "$ROOT_DIR" "$APP")
-
-slack_color_log "$SLACK_WEBHOOK_LIBS" "$message" "#008000"

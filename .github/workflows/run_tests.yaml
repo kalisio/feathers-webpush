@@ -31,12 +31,12 @@ jobs:
     if: ${{ always() }}
     needs: [run_tests]
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: Run tests
         env:
           TEST_RESULT: ${{ needs.run_tests.result }}
           SLACK_WEBHOOK_LIBS: ${{ secrets.SLACK_WEBHOOK_LIBS }}
-        run: |
-          cd ..
-          cd feathers-webpush
-          ls -l
-          bash ./scripts/slack_notification.sh
+        run: bash ./scripts/slack_notification.sh

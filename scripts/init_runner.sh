@@ -3,7 +3,7 @@ set -euo pipefail
 # set -x
 
 JOB_ID=$1
-echo "$JOB_ID"
+
 THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
 THIS_DIR=$(dirname "$THIS_FILE")
 

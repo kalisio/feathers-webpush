@@ -35,8 +35,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
+      - name: Init runner
+        run: bash ./scripts/init_runner.sh ${{ github.job }}
       - name: Run tests
         env:
           TEST_RESULT: ${{ needs.run_tests.result }}
           SLACK_WEBHOOK_LIBS: ${{ secrets.SLACK_WEBHOOK_LIBS }}
-        run: bash ./scripts/slack_notification.sh  ${{ github.job }}
+        run: bash ./scripts/slack_notification.sh 

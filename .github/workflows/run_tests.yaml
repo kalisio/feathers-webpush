@@ -18,6 +18,10 @@ jobs:
           submodules: true
       - name: Init runner
         run: bash ./scripts/init_runner.sh ${{ github.job }}
+      - name: Setup workspace
+        env:
+          GITHUB_DEVELOPMENT_PAT: ${{ secrets.GH_DEVELOPMENT_PAT }}
+        run: bash ./scripts/setup_workspace.sh -n ${{ matrix.node }}
       - name: Run tests
         env:
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}

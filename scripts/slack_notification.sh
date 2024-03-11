@@ -25,23 +25,34 @@ get_git_commit_url() {
     echo "$COMMIT_URL"
 }
 
+get_commit_checks_url() {
+    local ROOT_DIR="$1"
+    local APP="$2"
+    local REPO_NAME="${APP##*/}"
+    local COMMIT_SHA
+    COMMIT_SHA=$(get_git_commit_sha "$ROOT_DIR")
+    echo "https://github.com/kalisio/$REPO_NAME/commit/$COMMIT_SHA/checks"
+}
+
 generate_slack_message() {
     local ROOT_DIR="$1"
     local APP="$2"
     local TEST_RESULT="$3"
     local COMMIT_SHA
     local COMMIT_URL
+    local COMMIT_CHECKS_URL
     local AUTHOR
     local BUILD_STATUS
     COMMIT_SHA=$(get_git_commit_sha "$ROOT_DIR")
     COMMIT_URL=$(get_git_commit_url "$ROOT_DIR" "$APP")
+    COMMIT_CHECKS_URL=$(get_commit_checks_url "$ROOT_DIR" "$APP")
     AUTHOR=$(get_git_commit_author_name "$THIS_DIR")
     if [ "$TEST_RESULT" = "failure" ]; then
         BUILD_STATUS="failed"
     else
         BUILD_STATUS="passed"
     fi
-    echo "Build (<${COMMIT_URL}|${COMMIT_SHA}> of $APP by $AUTHOR $BUILD_STATUS"
+    echo "<Build|${COMMIT_CHECKS_URL}> <${COMMIT_URL}|${COMMIT_SHA}> of $APP by $AUTHOR $BUILD_STATUS"
 }
 
 get_slack_color() {

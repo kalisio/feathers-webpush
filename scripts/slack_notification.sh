@@ -52,7 +52,7 @@ generate_slack_message() {
     else
         BUILD_STATUS="passed"
     fi
-    echo "<Build|${COMMIT_CHECKS_URL}> <${COMMIT_URL}|${COMMIT_SHA}> of $APP by $AUTHOR $BUILD_STATUS"
+    echo "<${COMMIT_CHECKS_URL}|Build> <${COMMIT_URL}|${COMMIT_SHA}> of $APP by $AUTHOR $BUILD_STATUS"
 }
 
 get_slack_color() {

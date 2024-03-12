@@ -78,7 +78,7 @@ echo "About to run tests for ${APP} v${VERSION} ..."
 ##
 
 MESSAGE=$(generate_slack_message "$ROOT_DIR" "$APP" "failed")
-trap 'slack_color_log "$SLACK_WEBHOOK_LIBS" "$MESSAGE" "#a30200"' EXIT
+trap 'slack_color_log "$SLACK_WEBHOOK_LIBS" "$MESSAGE" "#a30200"' ERR
 
 ## Run tests
 ##

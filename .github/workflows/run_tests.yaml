@@ -24,21 +24,6 @@ jobs:
         run: bash ./scripts/setup_workspace.sh -n ${{ matrix.node }}
       - name: Run tests
         env:
+          SLACK_WEBHOOK_LIBS: ${{ secrets.SLACK_WEBHOOK_LIBS }}
           SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
         run: bash ./scripts/run_tests.sh -n ${{ matrix.node }}
-  # slack_notification:
-  #   runs-on: ubuntu-latest
-  #   if: ${{ always() }}
-  #   needs: [run_tests]
-  #   steps:
-  #     - name: Checkout repo
-  #       uses: actions/checkout@v4
-  #       with:
-  #         submodules: true
-  #     - name: Init runner
-  #       run: bash ./scripts/init_runner.sh ${{ github.job }}
-  #     - name: Run tests
-  #       env:
-  #         TEST_RESULT: 
-  #         SLACK_WEBHOOK_LIBS: ${{ secrets.SLACK_WEBHOOK_LIBS }}
-  #       run: bash ./scripts/slack_notification.sh -s ${{ needs.run_tests.result }}

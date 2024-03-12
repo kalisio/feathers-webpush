@@ -93,7 +93,7 @@ echo "About to run tests for ${APP} v${VERSION} ..."
 ## Notify Slack in case of failure
 ##
 
-trap 'send_slack_message "$ROOT_DIR" "$APP" "failed"' ERR
+trap 'send_slack_message "$ROOT_DIR" "$NODE_VER" "$APP" "failed"' ERR
 
 ## Run tests
 ##
@@ -111,4 +111,4 @@ fi
 ## Notify on slack upon successful completion
 ##
 
-send_slack_message "$ROOT_DIR" "$APP" "passed"
+send_slack_message "$ROOT_DIR" "$NODE_VER" "$APP" "passed"

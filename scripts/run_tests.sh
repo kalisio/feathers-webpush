@@ -84,7 +84,7 @@ trap 'slack_color_log "$SLACK_WEBHOOK_LIBS" "$MESSAGE" "#a30200"' ERR
 ##
 
 use_node "$NODE_VER"
-yarn && yarn test
+ yarn test
 
 ## Publish code coverage
 ##

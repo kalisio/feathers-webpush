@@ -14,10 +14,9 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 WORKSPACE_BRANCH=
 WORKSPACE_TAG=
 WORKSPACE_NODE=16
-WORKSPACE_KIND=klifull
 OPT_LIST="n:k:"
 if [ "$CI" != true ]; then
-    OPT_LIST="b:n:t:k:"
+    OPT_LIST="b:n:t:"
 fi
 
 while getopts "$OPT_LIST" OPT; do
@@ -28,8 +27,6 @@ while getopts "$OPT_LIST" OPT; do
             WORKSPACE_NODE=$OPTARG;;
         t) # defines venv tag
             WORKSPACE_TAG=$OPTARG;;
-        k) # workspace kind (nokli kli klifull)
-            WORKSPACE_KIND=$OPTARG;;
         *)
         ;;
     esac
@@ -64,7 +61,3 @@ DEVELOPMENT_DIR="$WORKSPACE_DIR/development"
 git clone --depth 1 "$DEVELOPMENT_REPO_URL" "$DEVELOPMENT_DIR"
 
 end_group "Setting up workspace ..."
-
-if [ -n "${KLI_FILE:-}" ]; then
-    echo "Workspace setup using $KLI_FILE"
-fi

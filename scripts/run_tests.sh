@@ -26,13 +26,12 @@ done
 ##
 
 WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
-init_app_infos "$ROOT_DIR" "$WORKSPACE_DIR/development/workspaces/libs"
+init_lib_infos "$ROOT_DIR"
 
-APP=$(get_app_name)
-VERSION=$(get_app_version)
-FLAVOR=$(get_app_flavor)
+APP=$(get_lib_name)
+VERSION=$(get_lib_version)
 
-echo "About to run tests for ${APP} v${VERSION}-($FLAVOR) ..."
+echo "About to run tests for ${APP} v${VERSION} ..."
 
 . "$WORKSPACE_DIR/development/workspaces/libs/libs.sh" feathers-webpush
 
@@ -45,5 +44,4 @@ yarn && yarn test
 ## Publish code coverage
 ##
 
-install_cc_test_reporter ~
 send_coverage_to_cc 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127

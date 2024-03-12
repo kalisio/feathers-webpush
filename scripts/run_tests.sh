@@ -47,10 +47,8 @@ yarn && yarn test
 
 ## Publish code coverage
 ##
-if [ "$NODE_VER" -eq 16 ]; then
-    send_coverage_to_cc 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-fi
 
+send_coverage_to_cc 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127 "$NODE_VER"
 
 ## Notify on slack upon successful completion
 ##

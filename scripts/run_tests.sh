@@ -39,7 +39,23 @@ generate_slack_message() {
     echo "<${COMMIT_CHECKS_URL}|Build> <${COMMIT_URL}|${COMMIT_SHA}> of $APP by $AUTHOR $BUILD_STATUS"
 }
 
-
+send_slack_message() {
+    local ROOT_DIR="$1"
+    local NODE_VER="$2"
+    local APP="$3"
+    local BUILD_STATUS="$4"
+    local MESSAGE
+    local COLOR
+    MESSAGE=$(generate_slack_message "$ROOT_DIR" "$APP" "$BUILD_STATUS")
+    if [ "$BUILD_STATUS" = "failed" ]; then
+        COLOR="#a30200"
+    else
+        COLOR="#2eb886"
+    fi
+    if [ "$NODE_VER" -eq 16 ]; then
+        slack_color_log "$SLACK_WEBHOOK_LIBS" "$MESSAGE" "$COLOR"
+    fi
+}
 
 
 THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
@@ -77,14 +93,13 @@ echo "About to run tests for ${APP} v${VERSION} ..."
 ## Notify Slack in case of failure
 ##
 
-MESSAGE=$(generate_slack_message "$ROOT_DIR" "$APP" "failed")
-trap 'slack_color_log "$SLACK_WEBHOOK_LIBS" "$MESSAGE" "#a30200"' ERR
+trap 'send_slack_message "$ROOT_DIR" "$APP" "failed"' ERR
 
 ## Run tests
 ##
 
 use_node "$NODE_VER"
- yarn test
+yarn && yarn test
 
 ## Publish code coverage
 ##
@@ -95,7 +110,5 @@ fi
 
 ## Notify on slack upon successful completion
 ##
-if [ "$NODE_VER" -eq 16 ]; then
-    MESSAGE=$(generate_slack_message "$ROOT_DIR" "$APP" "passed")
-    slack_color_log "$SLACK_WEBHOOK_LIBS" "$MESSAGE" "#2eb886"
-fi
+
+send_slack_message "$ROOT_DIR" "$APP" "passed"

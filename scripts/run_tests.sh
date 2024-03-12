@@ -2,6 +2,15 @@
 set -euo pipefail
 # set -x
 
+## Function to send slack message
+send_slack_message() {
+    # Implement your logic here to send a slack message
+    echo "Sending slack message..."
+}
+
+## Trap to handle errors
+trap send_slack_message EXIT
+
 THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
 THIS_DIR=$(dirname "$THIS_FILE")
 ROOT_DIR=$(dirname "$THIS_DIR")
@@ -44,6 +53,3 @@ yarn && yarn test
 ##
 
 send_coverage_to_cc 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
-
-## Trap to handle errors
-trap 'echo "Error occurred. Sending slack message..."; send_slack_message' ERR

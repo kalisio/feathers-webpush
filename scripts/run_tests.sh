@@ -12,7 +12,6 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 ##
 
 NODE_VER=16
-MONGO_VER=4
 while getopts "n:" option; do
     case $option in
         n) # defines node version
@@ -26,7 +25,7 @@ done
 ##
 
 WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
-init_lib_infos "$ROOT_DIR"
+init_lib_infos 
 
 APP=$(get_lib_name)
 VERSION=$(get_lib_version)
@@ -45,3 +44,6 @@ yarn && yarn test
 ##
 
 send_coverage_to_cc 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127
+
+## Trap to handle errors
+trap 'echo "Error occurred. Sending slack message..."; send_slack_message' ERR

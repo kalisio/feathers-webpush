@@ -99,7 +99,7 @@ trap 'send_slack_message "$ROOT_DIR" "$NODE_VER" "$APP" "failed"' ERR
 ##
 
 use_node "$NODE_VER"
-yarn && yarn test
+yarn test
 
 ## Publish code coverage
 ##

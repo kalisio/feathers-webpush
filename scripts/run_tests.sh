@@ -12,10 +12,19 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 ##
 
 NODE_VER=16
-while getopts "n:" option; do
+CI_STEP_NAME="Run tests"
+while getopts "n:r:c:" option; do
     case $option in
         n) # defines node version
-            NODE_VER=$OPTARG;;
+            NODE_VER=$OPTARG
+             ;;
+        r) # report outcome to slack
+            CI_STEP_NAME=$OPTARG
+            trap 'slack_ci_report "$ROOT_DIR" "$CI_STEP_NAME" "$?" "$SLACK_WEBHOOK_LIBS"' EXIT
+            ;;
+        c) # publish code coverage
+            trap 'send_coverage_to_cc "$CC_TEST_REPORTER_ID" "$?"' EXIT
+            ;;
         *)
             ;;
     esac
@@ -33,24 +42,10 @@ VERSION=$(get_lib_version)
 echo "About to run tests for ${APP} v${VERSION} ..."
 
 . "$WORKSPACE_DIR/development/workspaces/libs/libs.sh" feathers-webpush
-
-## Notify Slack in case of failure
-##
-
-trap 'send_slack_message "$ROOT_DIR" "$NODE_VER" "$APP" "failed"' ERR
+load_env_files "$WORKSPACE_DIR/development/common/SLACK_WEBHOOK_LIBS.enc.env"
 
 ## Run tests
 ##
 
 use_node "$NODE_VER"
 yarn && yarn test
-
-## Publish code coverage
-##
-
-send_coverage_to_cc 8e87a996279373f05f01ce8166aac1bc9dda990e9a2f936af25e5aa11326b127 "$NODE_VER"
-
-## Notify on slack upon successful completion
-##
-
-send_slack_message "$ROOT_DIR" "$NODE_VER" "$APP" "passed"

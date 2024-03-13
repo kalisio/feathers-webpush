@@ -13,32 +13,23 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 
 WORKSPACE_BRANCH=
 WORKSPACE_TAG=
-WORKSPACE_NODE=16
-OPT_LIST="n:k:"
-if [ "$CI" != true ]; then
-    OPT_LIST="b:n:t:"
-fi
-
-while getopts "$OPT_LIST" OPT; do
-    case $OPT in
-        b) # defines branch
-            WORKSPACE_BRANCH=$OPTARG;;
-        n) # defines node version
-            WORKSPACE_NODE=$OPTARG;;
-        t) # defines venv tag
-            WORKSPACE_TAG=$OPTARG;;
-        *)
-        ;;
-    esac
-done
 
 begin_group "Setting up workspace ..."
 
 if [ "$CI" = true ]; then
     WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
-
     DEVELOPMENT_REPO_URL="https://$GITHUB_DEVELOPMENT_PAT@github.com/kalisio/development.git"
 else
+    while getopts "b:t" option; do
+        case $option in
+            b) # defines branch
+                WORKSPACE_BRANCH=$OPTARG;;
+            t) # defines venv tag
+                WORKSPACE_TAG=$OPTARG;;
+            *)
+            ;;
+        esac
+    done
     shift $((OPTIND-1))
     WORKSPACE_DIR="$1"
 

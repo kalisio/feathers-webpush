@@ -14,17 +14,17 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 NODE_VER=16
 CI_STEP_NAME="Run tests"
 CODE_COVERAGE=false
-while getopts "n:r:c:" option; do
+while getopts "n:c:r:" option; do
     case $option in
         n) # defines node version
             NODE_VER=$OPTARG
              ;;
+        c) # publish code coverage
+            CODE_COVERAGE=true
+            ;;
         r) # report outcome to slack
             CI_STEP_NAME=$OPTARG
             trap 'slack_ci_report "$ROOT_DIR" "$CI_STEP_NAME" "$?" "$SLACK_WEBHOOK_LIBS"' EXIT
-            ;;
-        c) # publish code coverage
-            CODE_COVERAGE=true
             ;;
         *)
             ;;

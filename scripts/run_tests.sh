@@ -13,6 +13,7 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 
 NODE_VER=16
 CI_STEP_NAME="Run tests"
+CODE_COVERAGE=false
 while getopts "n:r:c:" option; do
     case $option in
         n) # defines node version
@@ -23,7 +24,7 @@ while getopts "n:r:c:" option; do
             trap 'slack_ci_report "$ROOT_DIR" "$CI_STEP_NAME" "$?" "$SLACK_WEBHOOK_LIBS"' EXIT
             ;;
         c) # publish code coverage
-            trap 'send_coverage_to_cc "$CC_TEST_REPORTER_ID" "$?"' EXIT
+            CODE_COVERAGE=true
             ;;
         *)
             ;;
@@ -49,3 +50,9 @@ load_env_files "$WORKSPACE_DIR/development/common/SLACK_WEBHOOK_LIBS.enc.env"
 
 use_node "$NODE_VER"
 yarn && yarn test
+
+## Publish code coverage
+##
+if [ -n "$CODE_COVERAGE" ]; then
+    send_coverage_to_cc "$CC_TEST_REPORTER_ID"
+fi

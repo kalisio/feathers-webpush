@@ -53,6 +53,7 @@ yarn && yarn test
 
 ## Publish code coverage
 ##
-if [ -n "$CODE_COVERAGE" ]; then
+
+if [ "$CODE_COVERAGE" = true ]; then
     send_coverage_to_cc "$CC_TEST_REPORTER_ID"
 fi

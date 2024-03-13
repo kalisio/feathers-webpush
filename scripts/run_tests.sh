@@ -14,7 +14,7 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 NODE_VER=16
 CI_STEP_NAME="Run tests"
 CODE_COVERAGE=false
-while getopts "n:c:r:" option; do
+while getopts "n:cr:" option; do
     case $option in
         n) # defines node version
             NODE_VER=$OPTARG

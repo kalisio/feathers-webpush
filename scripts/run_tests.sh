@@ -5,6 +5,7 @@ set -euo pipefail
 THIS_FILE=$(readlink -f "${BASH_SOURCE[0]}")
 THIS_DIR=$(dirname "$THIS_FILE")
 ROOT_DIR=$(dirname "$THIS_DIR")
+WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
 
 . "$THIS_DIR/kash/kash.sh"
 

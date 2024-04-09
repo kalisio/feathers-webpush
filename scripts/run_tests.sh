@@ -12,6 +12,7 @@ ROOT_DIR=$(dirname "$THIS_DIR")
 ##
 
 NODE_VER=16
+MONGO_VER=""
 CI_STEP_NAME="Run tests"
 CODE_COVERAGE=false
 while getopts "n:cr:" option; do
@@ -23,6 +24,7 @@ while getopts "n:cr:" option; do
             CODE_COVERAGE=true
             ;;
         r) # report outcome to slack
+            load_env_files "$WORKSPACE_DIR/development/common/SLACK_WEBHOOK_LIBS.enc.env"
             CI_STEP_NAME=$OPTARG
             trap 'slack_ci_report "$ROOT_DIR" "$CI_STEP_NAME" "$?" "$SLACK_WEBHOOK_LIBS"' EXIT
             ;;
@@ -34,26 +36,9 @@ done
 ## Init workspace
 ##
 
-WORKSPACE_DIR="$(dirname "$ROOT_DIR")"
-init_lib_infos "$ROOT_DIR"
-
-APP=$(get_lib_name)
-VERSION=$(get_lib_version)
-
-echo "About to run tests for ${APP} v${VERSION} ..."
-
 . "$WORKSPACE_DIR/development/workspaces/libs/libs.sh" feathers-webpush
-load_env_files "$WORKSPACE_DIR/development/common/SLACK_WEBHOOK_LIBS.enc.env"
 
 ## Run tests
 ##
 
-use_node "$NODE_VER"
-yarn && yarn test
-
-## Publish code coverage
-##
-
-if [ "$CODE_COVERAGE" = true ]; then
-    send_coverage_to_cc "$CC_TEST_REPORTER_ID"
-fi
+run_lib_tests "$ROOT_DIR" "$CODE_COVERAGE" "$NODE_VER" "$MONGO_VER"

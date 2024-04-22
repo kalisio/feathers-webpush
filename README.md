@@ -1,7 +1,7 @@
 # feathers-webpush
 
 [![Latest Release](https://img.shields.io/github/v/tag/kalisio/feathers-webpush?sort=semver&label=latest)](https://github.com/kalisio/feathers-webpush/releases)
-[![Main CI](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml/badge.svg)](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml)
+[![ci](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml/badge.svg)](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml)
 [![Code Climate](https://codeclimate.com/github/kalisio/feathers-webpush/badges/gpa.svg)](https://codeclimate.com/github/kalisio/feathers-webpush)
 [![Test Coverage](https://codeclimate.com/github/kalisio/feathers-webpush/badges/coverage.svg)](https://codeclimate.com/github/kalisio/feathers-webpush/coverage)
 [![Download Status](https://img.shields.io/npm/dm/@kalisio/feathers-webpush.svg?style=flat-square)](https://www.npmjs.com/package/@kalisio/feathers-webpush)

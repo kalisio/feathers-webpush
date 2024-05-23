@@ -4,6 +4,7 @@
 [![ci](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml/badge.svg)](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml)
 [![Code Climate](https://codeclimate.com/github/kalisio/feathers-webpush/badges/gpa.svg)](https://codeclimate.com/github/kalisio/feathers-webpush)
 [![Test Coverage](https://codeclimate.com/github/kalisio/feathers-webpush/badges/coverage.svg)](https://codeclimate.com/github/kalisio/feathers-webpush/coverage)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Download Status](https://img.shields.io/npm/dm/@kalisio/feathers-webpush.svg?style=flat-square)](https://www.npmjs.com/package/@kalisio/feathers-webpush)
 
 > `feathers-webpush` simplifies the sending of web push notifications in a FeathersJS application.

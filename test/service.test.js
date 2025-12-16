@@ -55,7 +55,7 @@ describe('feathers-webpush:service', () => {
       subscriptionProperty: 'subscriptions'
     })
     expect(response).toExist()
-    // expect(response.successful[0].statusCode).to.equal(201)
+    expect(response.succesful[0].statusCode).to.equal(201)
   })
   after(async () => {
     await expressServer.close()

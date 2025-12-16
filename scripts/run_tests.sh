@@ -16,11 +16,14 @@ NODE_VER=20
 MONGO_VER=""
 CI_STEP_NAME="Run tests"
 CODE_COVERAGE=false
-while getopts "n:r:" option; do
+while getopts "n:cr:" option; do
     case $option in
         n) # defines node version
             NODE_VER=$OPTARG
-             ;;
+            ;;
+        c) # enable code coverage / trigger sonar
+            CODE_COVERAGE=true
+            ;;
         r) # report outcome to slack
             CI_STEP_NAME=$OPTARG        
             load_env_files "$WORKSPACE_DIR/development/common/SLACK_WEBHOOK_LIBS.enc.env"
@@ -44,6 +47,6 @@ run_lib_tests "$ROOT_DIR" "$CODE_COVERAGE" "$NODE_VER" "$MONGO_VER"
 ## Run SonarQube analysis
 ##
 
-if [ "$CI_STEP_NAME" = "Run tests" ]; then
+if [ "$CODE_COVERAGE" = true ]; then
     cd "$ROOT_DIR" && sonar-scanner
 fi

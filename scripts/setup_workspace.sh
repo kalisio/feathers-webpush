@@ -30,6 +30,6 @@ if [ "$CI" != true ]; then
     git_shallow_clone "$KALISIO_GITHUB_URL/kalisio/feathers-webpush.git" "$WORKSPACE_DIR/feathers-webpush" "${WORKSPACE_TAG:-${WORKSPACE_BRANCH:-}}"
 fi
 
-setup_lib_workspace "$WORKSPACE_DIR" "$KALISIO_GITHUB_URL/kalisio/development.git" "https://github.com/kalisio/feathers-webpush"
+setup_lib_workspace "$WORKSPACE_DIR" "$KALISIO_GITHUB_URL/kalisio/development.git" "https://github.com/kalisio/feathers-s3"
 
 end_group "Setting up workspace ..."

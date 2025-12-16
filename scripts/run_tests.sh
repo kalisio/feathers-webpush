@@ -44,4 +44,6 @@ run_lib_tests "$ROOT_DIR" "$CODE_COVERAGE" "$NODE_VER" "$MONGO_VER"
 ## Run SonarQube analysis
 ##
 
-cd "$ROOT_DIR" && sonar-scanner
+if [ "$CI_STEP_NAME" = "Run tests" ]; then
+    cd "$ROOT_DIR" && sonar-scanner
+fi

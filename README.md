@@ -7,6 +7,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Download Status](https://img.shields.io/npm/dm/@kalisio/feathers-webpush.svg?style=flat-square)](https://www.npmjs.com/package/@kalisio/feathers-webpush)
 
+### SonarQube badges
+
+[![Security Hotspots](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=security_hotspots&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
+[![Reliability Issues](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=software_quality_reliability_issues&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
+[![Maintainability Issues](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=software_quality_maintainability_issues&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
+
 > `feathers-webpush` simplifies the sending of web push notifications in a FeathersJS application.
 
 ## Principle

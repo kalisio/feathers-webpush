@@ -2,17 +2,10 @@
 
 [![Latest Release](https://img.shields.io/github/v/tag/kalisio/feathers-webpush?sort=semver&label=latest)](https://github.com/kalisio/feathers-webpush/releases)
 [![ci](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml/badge.svg)](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml)
-[![Code Climate](https://codeclimate.com/github/kalisio/feathers-webpush/badges/gpa.svg)](https://codeclimate.com/github/kalisio/feathers-webpush)
-[![Test Coverage](https://codeclimate.com/github/kalisio/feathers-webpush/badges/coverage.svg)](https://codeclimate.com/github/kalisio/feathers-webpush/coverage)
+[![Maintainability Issues](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=software_quality_maintainability_issues&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
+[![Coverage](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=coverage&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Download Status](https://img.shields.io/npm/dm/@kalisio/feathers-webpush.svg?style=flat-square)](https://www.npmjs.com/package/@kalisio/feathers-webpush)
-
-### SonarQube badges
-
-[![Quality Gate Status](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=alert_status&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
-[![Security Hotspots](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=security_hotspots&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
-[![Reliability Issues](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=software_quality_reliability_issues&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
-[![Maintainability Issues](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=software_quality_maintainability_issues&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
 
 > `feathers-webpush` simplifies the sending of web push notifications in a FeathersJS application.
 

@@ -83,7 +83,7 @@ The `deleteExpiredSubscriptions` is an `after` hook that deletes expired subscri
 
 To use this hook, you need to import it and include it in your FeathersJS application.
 
-Exemple usage: 
+Exemple usage:
 
 ```js
 import { deleteExpiredSubscriptions } from '@kalisio/feathers-webpush'
@@ -134,12 +134,8 @@ To perform the tests, you need to create web push subscription and set the follo
 
 ## License
 
-Copyright (c) 2017-20xx Kalisio
-
 Licensed under the [MIT license](LICENSE).
 
-## Authors
+Copyright (c) 2017-20xx [Kalisio](https://kalisio.com)
 
-This project is sponsored by 
-
-[![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
+[![Kalisio](https://kalisio.github.io/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)

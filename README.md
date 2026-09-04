@@ -2,13 +2,21 @@
 
 [![Latest Release](https://img.shields.io/github/v/tag/kalisio/feathers-webpush?sort=semver&label=latest)](https://github.com/kalisio/feathers-webpush/releases)
 [![ci](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml/badge.svg)](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml)
-[![Quality Gate Status](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=alert_status&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
-[![Maintainability Issues](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=software_quality_maintainability_issues&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
-[![Coverage](https://sonar.portal.kalisio.com/api/project_badges/measure?project=kalisio-feathers-webpush&metric=coverage&token=sqb_d5c63963ceb66ab448ba27ad531b69b6eebf1168)](https://sonar.portal.kalisio.com/dashboard?id=kalisio-feathers-webpush)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Download Status](https://img.shields.io/npm/dm/@kalisio/feathers-webpush.svg?style=flat-square)](https://www.npmjs.com/package/@kalisio/feathers-webpush)
 
 > `feathers-webpush` simplifies the sending of web push notifications in a FeathersJS application.
+
+
+> [!IMPORTANT]
+> This package has moved to the [`feathers-ekosystem`](https://github.com/kalisio/feathers-ekosystem) monorepo.
+>
+> Please use and follow the version maintained in `packages/feathers-webpush` from now on.
+>
+> This repository is no longer maintained.
+
+
+<details> <summary>Legacy documentation</summary>
 
 ## Principle
 
@@ -132,10 +140,19 @@ To perform the tests, you need to create web push subscription and set the follo
 * `SUBSCRIPTION_TEST_KEY_AUTH`
 * `SUBSCRIPTION_TEST_KEY_P256DH`
 
+</details>
+
 ## License
 
 Licensed under the [MIT license](LICENSE).
 
-Copyright (c) 2017-20xx [Kalisio](https://kalisio.com)
+Copyright (c) 2017-present [Kalisio](https://kalisio.com)
 
-[![Kalisio](https://kalisio.github.io/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
+
+<a href="https://kalisio.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://kalisio.github.io/kalisioscope/kalisio/kalisio-logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://kalisio.github.io/kalisioscope/kalisio/kalisio-logo-light.svg">
+    <img alt="Kalisio" src="https://kalisio.github.io/kalisioscope/kalisio/kalisio-logo-light.svg" height="96">
+  </picture>
+</a>

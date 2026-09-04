@@ -1,7 +1,6 @@
 # feathers-webpush
 
 [![Latest Release](https://img.shields.io/github/v/tag/kalisio/feathers-webpush?sort=semver&label=latest)](https://github.com/kalisio/feathers-webpush/releases)
-[![ci](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml/badge.svg)](https://github.com/kalisio/feathers-webpush/actions/workflows/main.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Download Status](https://img.shields.io/npm/dm/@kalisio/feathers-webpush.svg?style=flat-square)](https://www.npmjs.com/package/@kalisio/feathers-webpush)
 
